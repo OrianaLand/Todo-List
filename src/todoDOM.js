@@ -40,11 +40,25 @@ export const renderAllCategories = () => {
   const allCategoriessUl = document.querySelector(".dynamic-categories");
   allCategoriessUl.innerText = "";
 
-  for (let taskCategory of todoTasksList) {
-    const category = document.createElement("li");
+  for (let category of todoCategoriesList) {
+    const categoryLi = document.createElement("li");
+    const categoryBtn = document.createElement("button");
+    const textSpan = document.createElement("span");
+    const counterSpan = document.createElement("span");
 
-    category.innerText = taskCategory.category;
+    let slug = category.toLowerCase().replace(/\s+/g, "-");
 
-    allCategoriessUl.append(category);
+    categoryBtn.classList.add("category-button");
+    categoryBtn.dataset.category = slug;
+
+    textSpan.innerText = category;
+    textSpan.classList.add("category-name");
+
+    counterSpan.classList.add("counter");
+    counterSpan.id = `${slug}-tasks`;
+
+    categoryBtn.append(textSpan, counterSpan);
+    categoryLi.append(categoryBtn);
+    allCategoriessUl.append(categoryLi);
   }
 };
