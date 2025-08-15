@@ -13,8 +13,8 @@ export function logAgain() {
   log();
 }
 
-export const renderAlltasks = () => {
-  const allTasksUl = document.querySelector(".main-tasks");
+export const renderAllTasks = () => {
+  const allTasksUl = document.querySelector(".tasks-list");
   allTasksUl.innerText = "";
 
   for (let task of todoTasksList) {
@@ -33,6 +33,32 @@ export const renderAlltasks = () => {
 
     taskCard.append(title, description, dueDate, category, priority);
     allTasksUl.append(taskCard);
+  }
+};
+
+export const renderCompletedTasks = () => {
+  const allTasksUl = document.querySelector(".tasks-list");
+  allTasksUl.innerText = "";
+
+  for (let completedTask of todoTasksList) {
+    if (completedTask.done) {
+      console.log("yay done");
+      const taskCard = document.createElement("div");
+      const title = document.createElement("h2");
+      const description = document.createElement("p");
+      const dueDate = document.createElement("p");
+      const category = document.createElement("p");
+      const priority = document.createElement("p");
+
+      title.innerText = completedTask._title;
+      description.innerText = completedTask.description;
+      dueDate.innerText = completedTask.dueDate;
+      category.innerText = completedTask.category;
+      priority.innerText = completedTask.priority;
+
+      taskCard.append(title, description, dueDate, category, priority);
+      allTasksUl.append(taskCard);
+    }
   }
 };
 
