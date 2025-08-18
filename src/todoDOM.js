@@ -13,27 +13,36 @@ export function logAgain() {
   log();
 }
 
+function createTaskCardElement(task) {
+  const taskCard = document.createElement("div");
+  const title = document.createElement("h2");
+  const description = document.createElement("p");
+  const dueDate = document.createElement("p");
+  const category = document.createElement("p");
+  const priority = document.createElement("p");
+
+  title.innerText = task._title;
+  description.innerText = task.description;
+  dueDate.innerText = task.dueDate;
+  category.innerText = task.category;
+  priority.innerText = task.priority;
+
+  taskCard.append(title, description, dueDate, category, priority);
+
+  return taskCard;
+}
+
 export const renderAllTasks = () => {
   const allTasksUl = document.querySelector(".tasks-list");
+  let taskCounter = 0;
   allTasksUl.innerText = "";
 
   for (let task of todoTasksList) {
-    const taskCard = document.createElement("div");
-    const title = document.createElement("h2");
-    const description = document.createElement("p");
-    const dueDate = document.createElement("p");
-    const category = document.createElement("p");
-    const priority = document.createElement("p");
-
-    title.innerText = task._title;
-    description.innerText = task.description;
-    dueDate.innerText = task.dueDate;
-    category.innerText = task.category;
-    priority.innerText = task.priority;
-
-    taskCard.append(title, description, dueDate, category, priority);
+    taskCounter++;
+    const taskCard = createTaskCardElement(task);
     allTasksUl.append(taskCard);
   }
+  console.log(taskCounter);
 };
 
 export const renderCompletedTasks = () => {
@@ -42,21 +51,7 @@ export const renderCompletedTasks = () => {
 
   for (let completedTask of todoTasksList) {
     if (completedTask.done) {
-      console.log("yay done");
-      const taskCard = document.createElement("div");
-      const title = document.createElement("h2");
-      const description = document.createElement("p");
-      const dueDate = document.createElement("p");
-      const category = document.createElement("p");
-      const priority = document.createElement("p");
-
-      title.innerText = completedTask._title;
-      description.innerText = completedTask.description;
-      dueDate.innerText = completedTask.dueDate;
-      category.innerText = completedTask.category;
-      priority.innerText = completedTask.priority;
-
-      taskCard.append(title, description, dueDate, category, priority);
+      const taskCard = createTaskCardElement(completedTask);
       allTasksUl.append(taskCard);
     }
   }
@@ -88,3 +83,6 @@ export const renderAllCategories = () => {
     allCategoriessUl.append(categoryLi);
   }
 };
+
+//How do we render each project tasks?
+//crate task counter function

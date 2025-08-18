@@ -1,5 +1,41 @@
 import Todo from "./todoItem.js";
 
+class TaskCategoryCounter {
+  constructor() {
+    this.categories = {};
+  }
+
+  // Format category to match DOM ID style
+  formatKey(category) {
+    let key = category.toLowerCase().replace(/\s+/g, "-");
+
+    // Avoid double "-tasks" if it already ends with "tasks"
+    if (!key.endsWith("-tasks")) {
+      key = `${key}-tasks`;
+    }
+    return key;
+  }
+
+  addSingleCategory(category) {
+    const key = this.formatKey(category);
+    this.categories[key] = (this.categories[key] || 0) + 1;
+  }
+
+  addMultipleCategories(categories) {
+    categories.forEach((category) => this.addSingleCategory(category));
+  }
+
+  getCount(category) {
+    const key = this.formatKey(category);
+    return this.categories[key] || 0;
+  }
+
+  getAllCounts() {
+    return { ...this.categories };
+  }
+}
+
+export const taskCategoryCounter = new TaskCategoryCounter();
 export const todoTasksList = [];
 export const todoCategoriesList = [];
 
@@ -56,11 +92,8 @@ export const deleteTodo = (todosArray) => {
 };
 
 export const addCategory = (categoryName) => {
-  if (todoCategoriesList.includes(categoryName)) {
-    console.log(categoryName + " Already exists");
-  } else {
-    todoCategoriesList.push(categoryName);
-  }
+  todoCategoriesList.push(categoryName);
+  taskCategoryCounter.addSingleCategory(categoryName);
 }; //This function might be removed in the future
 
 export const markTodoAsCompleted = (todo) => {
@@ -112,4 +145,5 @@ export function log() {
   console.log(markTodoAsCompleted(todoTasksList[0]));
   console.log(todoTasksList[0].done);
   console.log(todoTasksList);
+  console.log(taskCategoryCounter);
 }
