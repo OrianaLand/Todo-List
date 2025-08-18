@@ -1,5 +1,6 @@
 import { todoTasksList } from "./todoList.js";
 import { todoCategoriesList } from "./todoList.js";
+import { taskCategoryCounter } from "./todoList.js";
 import { createTodoItem } from "./todoList.js";
 import { addNewTodo } from "./todoList.js";
 import { deleteTodo } from "./todoList.js";
@@ -34,15 +35,15 @@ function createTaskCardElement(task) {
 
 export const renderAllTasks = () => {
   const allTasksUl = document.querySelector(".tasks-list");
-  let taskCounter = 0;
   allTasksUl.innerText = "";
+  let taskCounter = 0;
 
   for (let task of todoTasksList) {
     taskCounter++;
     const taskCard = createTaskCardElement(task);
     allTasksUl.append(taskCard);
   }
-  console.log(taskCounter);
+  console.log("all tasks counter: " + taskCounter);
 };
 
 export const renderCompletedTasks = () => {
@@ -57,7 +58,7 @@ export const renderCompletedTasks = () => {
   }
 };
 
-export const renderAllCategories = () => {
+export const renderDynamicCategories = () => {
   const allCategoriessUl = document.querySelector(".dynamic-categories");
   allCategoriessUl.innerText = "";
 
@@ -82,7 +83,7 @@ export const renderAllCategories = () => {
     categoryLi.append(categoryBtn);
     allCategoriessUl.append(categoryLi);
   }
-};
+}; //rename to renderDynamicCategories
 
 //How do we render each project tasks?
 //crate task counter function
