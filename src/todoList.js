@@ -41,8 +41,6 @@ class TaskCategoryManager {
   }
 }
 export const tasksManager = new TaskCategoryManager();
-export const todoTasksList = [];
-export const todoCategoriesList = [];
 
 export const createTodoItem = (
   title,
@@ -56,8 +54,6 @@ export const createTodoItem = (
 
 export const addNewTodo = (todo) => {
   tasksManager.addTask(todo);
-  todoTasksList.push(todo);
-  addCategory(todo.category);
 };
 
 export const editTodo = (todosArray) => {
@@ -96,10 +92,6 @@ export const deleteTodo = (todosArray) => {
     return todoList;
   }
 };
-
-export const addCategory = (categoryName) => {
-  todoCategoriesList.push(categoryName);
-}; //This function might be removed in the future
 
 export const markTodoAsCompleted = (todo) => {
   todo.toggleDoneStatus();
@@ -156,15 +148,6 @@ addNewTodo(task5);
 addNewTodo(task6);
 
 export function log() {
-  console.log(todoTasksList);
-  console.log(todoCategoriesList);
-
-  addCategory("Travel");
-  addCategory("Work");
-  console.log(todoCategoriesList);
-  console.log(todoTasksList[0].done);
-  console.log(markTodoAsCompleted(todoTasksList[0]));
-  console.log(todoTasksList[0].done);
-  console.log(todoTasksList);
-  console.log(tasksManager.categories);
+  console.log(tasksManager.getAllCategories());
+  console.log(tasksManager.getAllTasks());
 }
