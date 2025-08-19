@@ -1,12 +1,8 @@
-import { todoTasksList } from "./todoList.js";
-import { todoCategoriesList } from "./todoList.js";
 import { tasksManager } from "./todoList.js";
-import { taskCategoryCounter } from "./todoList.js";
 import { createTodoItem } from "./todoList.js";
 import { addNewTodo } from "./todoList.js";
 import { deleteTodo } from "./todoList.js";
 import { editTodo } from "./todoList.js";
-import { addCategory } from "./todoList.js";
 import { markTodoAsCompleted } from "./todoList.js";
 
 import { log } from "./todoList.js";
@@ -17,6 +13,18 @@ export function logAgain() {
 
 function createTaskCardElement(task) {
   const taskCard = document.createElement("div");
+  taskCard.classList.add("item-conatiner");
+
+  const checkboxContainer = document.createElement("div");
+  checkboxContainer.classList.add("checkbox-container");
+
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.classList.add("task-checkbox");
+
+  const cardInfo = document.createElement("div");
+  cardInfo.classList.add("item-info");
+
   const title = document.createElement("h2");
   const description = document.createElement("p");
   const dueDate = document.createElement("p");
@@ -29,7 +37,22 @@ function createTaskCardElement(task) {
   category.innerText = task.category;
   priority.innerText = task.priority;
 
-  taskCard.append(title, description, dueDate, category, priority);
+  const btnContainer = document.createElement("div");
+  btnContainer.classList.add("btn-container");
+
+  const editBtn = document.createElement("button");
+  editBtn.classList.add("edit-item");
+  editBtn.textContent = "✏️";
+
+  const deleteBtn = document.createElement("button");
+  deleteBtn.classList.add("delete-item");
+  deleteBtn.textContent = "🗑️";
+
+  checkboxContainer.append(checkbox);
+  cardInfo.append(title, description, dueDate, category);
+  btnContainer.append(editBtn, deleteBtn);
+
+  taskCard.append(checkboxContainer, cardInfo, btnContainer, priority);
 
   return taskCard;
 }
@@ -90,5 +113,15 @@ export const renderDynamicCategories = () => {
   }
 };
 
-//How do we render each project tasks?
-//crate task counter function
+export const renderTasksByCategory = (category) => {
+  const allTasksUl = document.querySelector(".tasks-list");
+  allTasksUl.innerText = "";
+  let allTasks = tasksManager.getAllTasks();
+
+  for (let task of allTasks) {
+    if (task.category === category) {
+      const taskCard = createTaskCardElement(task);
+      allTasksUl.append(taskCard);
+    }
+  }
+};
