@@ -1,5 +1,6 @@
 import { todoTasksList } from "./todoList.js";
 import { todoCategoriesList } from "./todoList.js";
+import { tasksManager } from "./todoList.js";
 import { taskCategoryCounter } from "./todoList.js";
 import { createTodoItem } from "./todoList.js";
 import { addNewTodo } from "./todoList.js";
@@ -37,8 +38,9 @@ export const renderAllTasks = () => {
   const allTasksUl = document.querySelector(".tasks-list");
   allTasksUl.innerText = "";
   let taskCounter = 0;
+  let allTasks = tasksManager.getAllTasks();
 
-  for (let task of todoTasksList) {
+  for (let task of allTasks) {
     taskCounter++;
     const taskCard = createTaskCardElement(task);
     allTasksUl.append(taskCard);
@@ -49,8 +51,9 @@ export const renderAllTasks = () => {
 export const renderCompletedTasks = () => {
   const allTasksUl = document.querySelector(".tasks-list");
   allTasksUl.innerText = "";
+  let allTasks = tasksManager.getAllTasks();
 
-  for (let completedTask of todoTasksList) {
+  for (let completedTask of allTasks) {
     if (completedTask.done) {
       const taskCard = createTaskCardElement(completedTask);
       allTasksUl.append(taskCard);
@@ -61,8 +64,8 @@ export const renderCompletedTasks = () => {
 export const renderDynamicCategories = () => {
   const allCategoriessUl = document.querySelector(".dynamic-categories");
   allCategoriessUl.innerText = "";
-
-  for (let category of todoCategoriesList) {
+  let dynamicCategories = tasksManager.getAllCategories();
+  for (let category of dynamicCategories) {
     const categoryLi = document.createElement("li");
     const categoryBtn = document.createElement("button");
     const textSpan = document.createElement("span");
@@ -83,7 +86,7 @@ export const renderDynamicCategories = () => {
     categoryLi.append(categoryBtn);
     allCategoriessUl.append(categoryLi);
   }
-}; //rename to renderDynamicCategories
+};
 
 //How do we render each project tasks?
 //crate task counter function
