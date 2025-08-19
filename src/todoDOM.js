@@ -71,16 +71,18 @@ export const renderDynamicCategories = () => {
     const textSpan = document.createElement("span");
     const counterSpan = document.createElement("span");
 
-    let slug = category.toLowerCase().replace(/\s+/g, "-");
-
     categoryBtn.classList.add("category-button");
-    categoryBtn.dataset.category = slug;
+    categoryBtn.dataset.category = category;
 
-    textSpan.innerText = category;
+    textSpan.innerText = category
+      .replace("-tasks", "") // remove "-tasks"
+      .replace(/-/g, " ") // replace "-" with spaces
+      .replace(/^./, (c) => c.toUpperCase()); // capitalize only the very first character
+
     textSpan.classList.add("category-name");
 
     counterSpan.classList.add("counter");
-    counterSpan.id = `${slug}-tasks`;
+    counterSpan.id = category;
 
     categoryBtn.append(textSpan, counterSpan);
     categoryLi.append(categoryBtn);
