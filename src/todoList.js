@@ -1,41 +1,42 @@
 import Todo from "./todoItem.js";
 
-class TaskCategoryCounter {
+class TaskCategoryManager {
   constructor() {
     this.categories = {};
   }
 
-  // Format category to match DOM ID style
-  formatKey(category) {
+  #formatKey(category) {
     let key = category.toLowerCase().replace(/\s+/g, "-");
-
-    // Avoid double "-tasks" if it already ends with "tasks"
     if (!key.endsWith("-tasks")) {
       key = `${key}-tasks`;
     }
     return key;
   }
 
-  addSingleCategory(category) {
-    const key = this.formatKey(category);
-    this.categories[key] = (this.categories[key] || 0) + 1;
+  #formatAllTasks() {
+    const allTasks = { ...this.categories };
+    return Object.values(allTasks).flat();
   }
 
-  addMultipleCategories(categories) {
-    categories.forEach((category) => this.addSingleCategory(category));
+  addTask(task) {
+    const key = this.#formatKey(task.category);
+    if (!this.categories[key]) {
+      this.categories[key] = []; // initialize array if new category
+    }
+    this.categories[key].push(task);
   }
 
-  getCount(category) {
-    const key = this.formatKey(category);
-    return this.categories[key] || 0;
+  getTasksByCategory(category) {
+    const key = this.#formatKey(category);
+    return this.categories[key] || [];
   }
 
-  getAllCounts() {
-    return { ...this.categories };
+  getAllTasks() {
+    let allTasks = this.#formatAllTasks();
+    return allTasks;
   }
 }
-
-export const taskCategoryCounter = new TaskCategoryCounter();
+export const tasksManager = new TaskCategoryManager();
 export const todoTasksList = [];
 export const todoCategoriesList = [];
 
@@ -50,6 +51,7 @@ export const createTodoItem = (
 };
 
 export const addNewTodo = (todo) => {
+  tasksManager.addTask(todo);
   todoTasksList.push(todo);
   addCategory(todo.category);
 };
@@ -93,7 +95,6 @@ export const deleteTodo = (todosArray) => {
 
 export const addCategory = (categoryName) => {
   todoCategoriesList.push(categoryName);
-  taskCategoryCounter.addSingleCategory(categoryName);
 }; //This function might be removed in the future
 
 export const markTodoAsCompleted = (todo) => {
@@ -128,11 +129,27 @@ const taks4 = createTodoItem(
   "Work",
   1
 );
+const task5 = createTodoItem(
+  "Dye hair",
+  "get the dye at the pharmacy",
+  "08-30-2025",
+  "Personal",
+  1
+);
+const task6 = createTodoItem(
+  "Therapy sesion",
+  "talk with Dr Vera about psi med",
+  "08-20-25",
+  "Health",
+  1
+);
 
 addNewTodo(taks1);
 addNewTodo(taks2);
 addNewTodo(taks3);
 addNewTodo(taks4);
+addNewTodo(task5);
+addNewTodo(task6);
 
 export function log() {
   console.log(todoTasksList);
@@ -145,5 +162,5 @@ export function log() {
   console.log(markTodoAsCompleted(todoTasksList[0]));
   console.log(todoTasksList[0].done);
   console.log(todoTasksList);
-  console.log(taskCategoryCounter);
+  console.log(tasksManager.categories);
 }
