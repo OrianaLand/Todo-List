@@ -35,6 +35,10 @@ class TaskCategoryManager {
     let allTasks = this.#formatAllTasks();
     return allTasks;
   }
+
+  getAllCategories() {
+    return Object.keys({ ...this.categories });
+  }
 }
 export const tasksManager = new TaskCategoryManager();
 export const todoTasksList = [];
