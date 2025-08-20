@@ -14,6 +14,7 @@ export function logAgain() {
 function createTaskCardElement(task) {
   const taskCard = document.createElement("div");
   taskCard.classList.add("item-conatiner");
+  taskCard.dataset.id = task.id;
 
   const checkboxContainer = document.createElement("div");
   checkboxContainer.classList.add("checkbox-container");
@@ -137,3 +138,17 @@ export const renderTasksByCategory = (category) => {
     }
   }
 };
+
+const tasksListContainer = document.querySelector(".list-container");
+tasksListContainer.addEventListener("click", (event) => {
+  if (!event.target.classList.contains("delete-item")) return;
+
+  const taskCard = event.target.closest(".item-conatiner");
+  if (!taskCard) return;
+
+  const taskId = taskCard.dataset.id;
+  deleteTodo(taskId);
+
+  // Remove DOM element
+  taskCard.remove();
+});

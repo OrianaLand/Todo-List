@@ -88,19 +88,20 @@ export const editTodo = (todosArray) => {
   }
 };
 
-export const deleteTodo = (todosArray) => {
-  const index = prompt(
-    `which todo do you want to delete from 1 to ${todosArray.length - 1}`
-  );
+export const deleteTodo = (taskId) => {
+  const task = tasksManager.allTasks.find((t) => t.id === taskId);
+  if (!task) return;
 
-  if (index === "" || index < 1) {
-    console.log("no todo deleted");
-    return;
-  } else {
-    console.log(`Todo "${todosArray[index - 1].title}" has been deleted`);
-    todoList.splice(index - 1, 1);
-    return todoList;
+  // Remove from category array
+  const key = task.category.toLowerCase().replace(/\s+/g, "-") + "-tasks";
+  if (tasksManager.categories[key]) {
+    tasksManager.categories[key] = tasksManager.categories[key].filter(
+      (t) => t.id !== taskId
+    );
   }
+
+  // Remove from allTasks
+  tasksManager.allTasks = tasksManager.allTasks.filter((t) => t.id !== taskId);
 };
 
 addNewTodo(
