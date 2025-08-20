@@ -3,6 +3,7 @@ import Todo from "./todoItem.js";
 class TaskCategoryManager {
   constructor() {
     this.categories = {};
+    this.allTasks = []; // preserve global order
   }
 
   #formatKey(category) {
@@ -13,17 +14,13 @@ class TaskCategoryManager {
     return key;
   }
 
-  #formatAllTasks() {
-    const allTasks = { ...this.categories };
-    return Object.values(allTasks).flat();
-  }
-
   addTask(task) {
     const key = this.#formatKey(task.category);
     if (!this.categories[key]) {
       this.categories[key] = []; // initialize array if new category
     }
     this.categories[key].push(task);
+    this.allTasks.push(task); // keep track of global insertion order
   }
 
   getTasksByCategory(category) {
@@ -32,8 +29,7 @@ class TaskCategoryManager {
   }
 
   getAllTasks() {
-    let allTasks = this.#formatAllTasks();
-    return allTasks;
+    return [...this.allTasks]; // Creates a shallow copy of the array before returning it.
   }
 
   getAllCategories() {

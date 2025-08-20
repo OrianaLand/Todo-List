@@ -21,6 +21,18 @@ function createTaskCardElement(task) {
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
   checkbox.classList.add("task-checkbox");
+  checkbox.checked = task.done; // reflect initial state
+
+  checkbox.addEventListener("change", () => {
+    task.toggleDoneStatus(); // flips the done property
+    title.style.textDecoration = task.done ? "line-through" : "none"; //test. Send to CSS when working with styles
+
+    /* if (task.done) {
+      taskCard.classList.add("completed");
+    } else {
+      taskCard.classList.remove("completed");
+    } */
+  });
 
   const cardInfo = document.createElement("div");
   cardInfo.classList.add("item-info");
