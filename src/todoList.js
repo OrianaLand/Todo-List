@@ -52,8 +52,20 @@ export const createTodoItem = (
   return new Todo(title, description, dueDate, category, priority);
 };
 
-export const addNewTodo = (todo) => {
-  tasksManager.addTask(todo);
+export const addNewTodo = (title, description, date, category, priority) => {
+  try {
+    const newTodo = createTodoItem(
+      title,
+      description,
+      date,
+      category,
+      priority
+    );
+    tasksManager.addTask(newTodo);
+  } catch (error) {
+    console.error("Error adding new Todo:", error);
+    return null;
+  }
 };
 
 export const editTodo = (todosArray) => {
@@ -97,55 +109,48 @@ export const markTodoAsCompleted = (todo) => {
   todo.toggleDoneStatus();
 };
 
-const taks1 = createTodoItem(
+addNewTodo(
   "Download movie",
   "Cars II on plex/overseer",
   "02-03-25",
   "Personal",
   1
 );
-const taks2 = createTodoItem(
+addNewTodo(
   "Todo list from TOP",
   "Divide and conquer. From small to big",
   "12-11-25",
   "Study",
   2
 );
-const taks3 = createTodoItem(
+addNewTodo(
   "Buy Ibuprofen",
   "Go to farmacity they have 2x1",
   "05-10-25",
   "Health",
   1
 );
-const taks4 = createTodoItem(
-  "Call Thom",
-  "Or maybe text him to meet up",
+addNewTodo(
+  "Call the supplier",
+  "Get an updated list of prices",
   "05-10-25",
   "Work",
   1
 );
-const task5 = createTodoItem(
+addNewTodo(
   "Dye hair",
   "get the dye at the pharmacy",
   "08-30-2025",
   "Personal",
   1
 );
-const task6 = createTodoItem(
+addNewTodo(
   "Therapy sesion",
   "talk with Dr Vera about psi med",
   "08-20-25",
   "Health",
   1
 );
-
-addNewTodo(taks1);
-addNewTodo(taks2);
-addNewTodo(taks3);
-addNewTodo(taks4);
-addNewTodo(task5);
-addNewTodo(task6);
 
 export function log() {
   console.log(tasksManager.getAllCategories());
