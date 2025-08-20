@@ -16,9 +16,11 @@ class TaskCategoryManager {
 
   addTask(task) {
     const key = this.#formatKey(task.category);
+
     if (!this.categories[key]) {
       this.categories[key] = []; // initialize array if new category
     }
+
     this.categories[key].push(task);
     this.allTasks.push(task); // keep track of global insertion order
   }
@@ -33,7 +35,7 @@ class TaskCategoryManager {
   }
 
   getAllCategories() {
-    return Object.keys({ ...this.categories });
+    return Object.keys(this.categories);
   }
 }
 export const tasksManager = new TaskCategoryManager();
@@ -99,10 +101,6 @@ export const deleteTodo = (todosArray) => {
     todoList.splice(index - 1, 1);
     return todoList;
   }
-};
-
-export const markTodoAsCompleted = (todo) => {
-  todo.toggleDoneStatus();
 };
 
 addNewTodo(
