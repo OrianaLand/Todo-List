@@ -49,6 +49,10 @@ class TaskCategoryManager {
     const today = this.#formatDate(new Date());
     return this.getAllTasks().filter((task) => task.dueDate === today);
   }
+
+  getCompletedTasks() {
+    return this.getAllTasks().filter((task) => task.done);
+  }
 }
 export const tasksManager = new TaskCategoryManager();
 
@@ -160,6 +164,5 @@ addNewTodo(
 );
 
 export function log() {
-  console.log(tasksManager.getAllCategories());
-  console.log(tasksManager.getAllTasks());
+  console.log(tasksManager.getCompletedTasks());
 }

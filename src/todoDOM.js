@@ -27,7 +27,6 @@ function createTaskCardElement(task) {
   checkbox.addEventListener("change", () => {
     task.toggleDoneStatus(); // flips the done property
     title.style.textDecoration = task.done ? "line-through" : "none"; //test. Send to CSS when working with styles
-
     /* if (task.done) {
       taskCard.classList.add("completed");
     } else {
@@ -87,13 +86,11 @@ export const renderAllTasks = () => {
 export const renderCompletedTasks = () => {
   const allTasksUl = document.querySelector(".tasks-list");
   allTasksUl.innerText = "";
-  let allTasks = tasksManager.getAllTasks();
+  let allTasks = tasksManager.getCompletedTasks();
 
   for (let completedTask of allTasks) {
-    if (completedTask.done) {
-      const taskCard = createTaskCardElement(completedTask);
-      allTasksUl.append(taskCard);
-    }
+    const taskCard = createTaskCardElement(completedTask);
+    allTasksUl.append(taskCard);
   }
 };
 
