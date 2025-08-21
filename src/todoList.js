@@ -14,6 +14,13 @@ class TaskCategoryManager {
     return key;
   }
 
+  #formatDate(date) {
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+    return `${yyyy}-${mm}-${dd}`;
+  }
+
   addTask(task) {
     const key = this.#formatKey(task.category);
 
@@ -36,6 +43,11 @@ class TaskCategoryManager {
 
   getAllCategories() {
     return Object.keys(this.categories);
+  }
+
+  getTodayTasks() {
+    const today = this.#formatDate(new Date());
+    return this.getAllTasks().filter((task) => task.dueDate === today);
   }
 }
 export const tasksManager = new TaskCategoryManager();
@@ -107,42 +119,42 @@ export const deleteTodo = (taskId) => {
 addNewTodo(
   "Download movie",
   "Cars II on plex/overseer",
-  "02-03-25",
+  "2025-08-21",
   "Personal",
   1
 );
 addNewTodo(
   "Todo list from TOP",
   "Divide and conquer. From small to big",
-  "12-11-25",
+  "2025-10-01",
   "Study",
   2
 );
 addNewTodo(
   "Buy Ibuprofen",
   "Go to farmacity they have 2x1",
-  "05-10-25",
+  "2025-09-01",
   "Health",
   1
 );
 addNewTodo(
   "Call the supplier",
   "Get an updated list of prices",
-  "05-10-25",
+  "2025-09-12",
   "Work",
   1
 );
 addNewTodo(
   "Dye hair",
   "get the dye at the pharmacy",
-  "08-30-2025",
+  "2025-08-30",
   "Personal",
   1
 );
 addNewTodo(
   "Therapy sesion",
   "talk with Dr Vera about psi med",
-  "08-20-25",
+  "2025-08-21",
   "Health",
   1
 );

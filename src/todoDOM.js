@@ -139,6 +139,18 @@ export const renderTasksByCategory = (category) => {
   }
 };
 
+export const renderTodayTasks = () => {
+  const allTasksUl = document.querySelector(".tasks-list");
+  allTasksUl.innerText = "";
+  const todayTasks = tasksManager.getTodayTasks();
+  console.log(todayTasks);
+
+  for (let task of todayTasks) {
+    const taskCard = createTaskCardElement(task);
+    allTasksUl.append(taskCard);
+  }
+};
+
 const tasksListContainer = document.querySelector(".list-container");
 tasksListContainer.addEventListener("click", (event) => {
   if (!event.target.classList.contains("delete-item")) return;
