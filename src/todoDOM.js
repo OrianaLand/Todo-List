@@ -129,13 +129,11 @@ export const renderDynamicCategories = () => {
 export const renderTasksByCategory = (category) => {
   const allTasksUl = document.querySelector(".tasks-list");
   allTasksUl.innerText = "";
-  let allTasks = tasksManager.getAllTasks();
+  let allTasks = tasksManager.getTasksByCategory(category);
 
   for (let task of allTasks) {
-    if (task.category === category) {
-      const taskCard = createTaskCardElement(task);
-      allTasksUl.append(taskCard);
-    }
+    const taskCard = createTaskCardElement(task);
+    allTasksUl.append(taskCard);
   }
 };
 
