@@ -19,6 +19,22 @@ const newTaskButtons = document.querySelectorAll(".new-task");
 const closeDialogBtn = document.querySelector(".close-dialog-btn");
 const addTaskForm = document.querySelector(".add-todo-form");
 
+let currentView = "all"; // default view on page load
+
+function renderView() {
+  if (currentView === "all") {
+    renderAllTasks();
+  } else if (currentView === "today") {
+    renderTodayTasks();
+  } else if (currentView === "completed") {
+    renderCompletedTasks();
+  } else if (currentView === "upcoming") {
+    console.log("upcoming");
+  } else {
+    renderTasksByCategory(currentView);
+  }
+}
+
 logAgain();
 
 renderDynamicCategories(); //on page load
@@ -27,32 +43,38 @@ renderTasksByCategory("Health"); //Action for each dynamic category button liste
 renderTodayTasks();
 renderAllTasks(); //Action for All tasks li button listener
 
-newTaskButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    openTodoDialog();
-  });
-});
-
 allTasksBtn.addEventListener("click", () => {
-  renderAllTasks();
+  currentView = "all";
+  renderView();
 });
 
 todayTasksBtn.addEventListener("click", () => {
-  renderTodayTasks();
+  currentView = "today";
+  renderView();
 });
 
-upcomingTasksBtn.addEventListener("click", () => {});
+upcomingTasksBtn.addEventListener("click", () => {
+  currentView = "upcoming";
+  renderView();
+});
 
 completedTasksBtn.addEventListener("click", () => {
-  renderCompletedTasks();
+  currentView = "completed";
+  renderView();
 });
 
 dynamicCategoryList.addEventListener("click", (event) => {
   if (event.target.closest(".dynamic-category-button")) {
     const btn = event.target.closest(".dynamic-category-button");
-    const category = btn.dataset.category;
-    renderTasksByCategory(category);
+    currentView = btn.dataset.category; // currentView is equivalent to the category
+    renderView();
   }
+});
+
+newTaskButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    openTodoDialog();
+  });
 });
 
 closeDialogBtn.addEventListener("click", () => {
@@ -64,4 +86,5 @@ addTaskForm.addEventListener("submit", (event) => {
   submitNewTodo();
   addTaskForm.reset();
   closeTodoDialog();
+  renderView();
 });

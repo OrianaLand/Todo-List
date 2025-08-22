@@ -71,6 +71,7 @@ function createTaskCardElement(task) {
   return taskCard;
 }
 
+function validateForm() {}
 export const renderAllTasks = () => {
   const allTasksUl = document.querySelector(".tasks-list");
   allTasksUl.innerText = "";
