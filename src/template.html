@@ -59,6 +59,52 @@
           <ul class="tasks-list"></ul>
         </div>
       </div>
+      <dialog>
+        <form action="get" class="add-todo-form">
+          <h3>New To-do</h3>
+          <div class="form-input">
+            <label for="title" class="input-label">Title: </label>
+            <input type="text" name="title" id="title" required />
+          </div>
+          <div class="form-input">
+            <label for="description" class="input-label">Description: </label>
+            <input type="text" name="description" id="description" required />
+          </div>
+          <div class="form-input">
+            <label for="date" class="input-label">Date: </label>
+            <input type="date" name="date" id="date" required />
+          </div>
+          <div class="form-input">
+            <label for="category" class="input-label">Category: </label>
+            <input type="category" name="category" id="category" required />
+          </div>
+          <div class="form-input">
+            <label for="priority" class="input-label">Priority: </label>
+            <select type="priority" name="priority" id="priority" required>
+              <option value="1">High</option>
+              <option value="2">Medium</option>
+              <option value="3">Low</option>
+            </select>
+          </div>
+          <div class="form-input">
+            <button
+              class="button add-to-list"
+              type="submit"
+              aria-label="Add to-do to list"
+            >
+              Add to-do
+            </button>
+            <button
+              class="button close-dialog-btn"
+              type="button"
+              aria-label="Cancel"
+            >
+              Cancel
+            </button>
+            <div id="dummy-focus"></div>
+          </div>
+        </form>
+      </dialog>
     </div>
     <!-- <footer class="footer">© 2025 Developed by Oriana</footer> -->
   </body>

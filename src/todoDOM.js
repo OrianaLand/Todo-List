@@ -7,6 +7,8 @@ import { markTodoAsCompleted } from "./todoList.js";
 
 import { log } from "./todoList.js";
 
+const dialog = document.querySelector("dialog");
+
 export function logAgain() {
   log();
 }
@@ -144,6 +146,31 @@ export const renderTodayTasks = () => {
     const taskCard = createTaskCardElement(task);
     allTasksUl.append(taskCard);
   }
+};
+
+export const openTodoDialog = () => {
+  dialog.showModal();
+  document.getElementById("dummy-focus").focus();
+};
+
+export const closeTodoDialog = () => {
+  dialog.close();
+};
+
+export const submitNewTodo = () => {
+  const title = document.querySelector("#title").value;
+  const description = document.querySelector("#description").value;
+  const date = document.querySelector("#date").value;
+  const category = document.querySelector("#category").value;
+  const priority = document.querySelector("#priority").value;
+
+  if (!title || !date || !category || !priority) {
+    alert("Please fill in all the required fields");
+    return;
+  }
+
+  addNewTodo(title, description, date, category, priority);
+  console.log(tasksManager);
 };
 
 const tasksListContainer = document.querySelector(".list-container");
