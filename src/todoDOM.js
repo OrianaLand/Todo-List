@@ -106,7 +106,7 @@ export const renderDynamicCategories = () => {
     const textSpan = document.createElement("span");
     const counterSpan = document.createElement("span");
 
-    categoryBtn.classList.add("category-button");
+    categoryBtn.classList.add("dynamic-category-button");
     categoryBtn.dataset.category = category;
 
     textSpan.innerText = category
@@ -158,11 +158,11 @@ export const closeTodoDialog = () => {
 };
 
 export const submitNewTodo = () => {
-  const title = document.querySelector("#title").value;
-  const description = document.querySelector("#description").value;
-  const date = document.querySelector("#date").value;
-  const category = document.querySelector("#category").value;
-  const priority = document.querySelector("#priority").value;
+  const title = document.querySelector("#title").value.trim();
+  const description = document.querySelector("#description").value.trim();
+  const date = document.querySelector("#date").value.trim();
+  const category = document.querySelector("#category").value.trim();
+  const priority = document.querySelector("#priority").value.trim();
 
   if (!title || !date || !category || !priority) {
     alert("Please fill in all the required fields");
