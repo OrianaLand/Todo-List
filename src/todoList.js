@@ -162,7 +162,3 @@ addNewTodo(
   "Health",
   1
 );
-
-export function log() {
-  console.log(tasksManager.getCompletedTasks());
-}

@@ -5,13 +5,7 @@ import { deleteTodo } from "./todoList.js";
 import { editTodo } from "./todoList.js";
 import { markTodoAsCompleted } from "./todoList.js";
 
-import { log } from "./todoList.js";
-
 const dialog = document.querySelector("dialog");
-
-export function logAgain() {
-  log();
-}
 
 function createTaskCardElement(task) {
   const taskCard = document.createElement("div");
@@ -71,19 +65,15 @@ function createTaskCardElement(task) {
   return taskCard;
 }
 
-function validateForm() {}
 export const renderAllTasks = () => {
   const allTasksUl = document.querySelector(".tasks-list");
   allTasksUl.innerText = "";
-  let taskCounter = 0;
   let allTasks = tasksManager.getAllTasks();
 
   for (let task of allTasks) {
-    taskCounter++;
     const taskCard = createTaskCardElement(task);
     allTasksUl.append(taskCard);
   }
-  console.log("all tasks counter: " + taskCounter);
 };
 
 export const renderCompletedTasks = () => {
@@ -141,7 +131,6 @@ export const renderTodayTasks = () => {
   const allTasksUl = document.querySelector(".tasks-list");
   allTasksUl.innerText = "";
   const todayTasks = tasksManager.getTodayTasks();
-  console.log(todayTasks);
 
   for (let task of todayTasks) {
     const taskCard = createTaskCardElement(task);
