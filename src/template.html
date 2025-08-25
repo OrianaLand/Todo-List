@@ -59,7 +59,32 @@
           <ul class="tasks-list"></ul>
         </div>
       </div>
-      <dialog>
+      <dialog class="add-project-dialog">
+        <form action="get" class="add-project-form">
+          <h3>New Project</h3>
+          <div class="form-input">
+            <label for="project" class="input-label">Project: </label>
+            <input type="text" name="project" id="project" required />
+          </div>
+          <div class="form-input">
+            <button
+              class="button add-new-project"
+              type="submit"
+              aria-label="Add project to list"
+            >
+              Add new project
+            </button>
+            <button
+              class="button close-project-dialog-btn"
+              type="button"
+              aria-label="Cancel"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </dialog>
+      <dialog class="add-todo-dialog">
         <form action="get" class="add-todo-form">
           <h3>New To-do</h3>
           <div class="form-input">

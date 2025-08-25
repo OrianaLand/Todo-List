@@ -32,6 +32,14 @@ class TaskCategoryManager {
     this.allTasks.push(task); // keep track of global insertion order
   }
 
+  addCategory(category) {
+    const key = this.#formatKey(category);
+    if (!this.categories[key]) {
+      this.categories[key] = []; // initialize array if new category
+    }
+    console.log(this.categories);
+  }
+
   getTasksByCategory(category) {
     const key = this.#formatKey(category);
     return this.categories[key] || [];
@@ -78,6 +86,15 @@ export const addNewTodo = (title, description, date, category, priority) => {
     tasksManager.addTask(newTodo);
   } catch (error) {
     console.error("Error adding new Todo:", error);
+    return null;
+  }
+};
+
+export const addNewCategory = (category) => {
+  try {
+    tasksManager.addCategory(category);
+  } catch (error) {
+    console.error("Error adding new Project:", error);
     return null;
   }
 };

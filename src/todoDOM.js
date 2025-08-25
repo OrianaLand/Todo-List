@@ -2,10 +2,12 @@ import { tasksManager } from "./todoList.js";
 import { createTodoItem } from "./todoList.js";
 import { addNewTodo } from "./todoList.js";
 import { deleteTodo } from "./todoList.js";
+import { addNewCategory } from "./todoList.js";
 import { editTodo } from "./todoList.js";
 import { markTodoAsCompleted } from "./todoList.js";
 
-const dialog = document.querySelector("dialog");
+const todoDialog = document.querySelector(".add-todo-dialog");
+const categoryDialog = document.querySelector(".add-project-dialog");
 
 function createTaskCardElement(task) {
   const taskCard = document.createElement("div");
@@ -139,12 +141,12 @@ export const renderTodayTasks = () => {
 };
 
 export const openTodoDialog = () => {
-  dialog.showModal();
+  todoDialog.showModal();
   document.getElementById("dummy-focus").focus();
 };
 
 export const closeTodoDialog = () => {
-  dialog.close();
+  todoDialog.close();
 };
 
 export const submitNewTodo = () => {
@@ -161,6 +163,24 @@ export const submitNewTodo = () => {
 
   addNewTodo(title, description, date, category, priority);
   console.log(tasksManager);
+};
+
+export const openCategoryDialog = () => {
+  categoryDialog.showModal();
+};
+
+export const closeCategoryDialog = () => {
+  categoryDialog.close();
+};
+
+export const submitNewCategory = () => {
+  const newCategory = document.querySelector("#project").value.trim();
+  if (!newCategory) {
+    alert("Please fill in all the required fields");
+    return;
+  }
+
+  addNewCategory(newCategory);
 };
 
 const tasksListContainer = document.querySelector(".list-container");
