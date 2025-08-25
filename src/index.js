@@ -33,6 +33,7 @@ function renderView() {
   } else {
     renderTasksByCategory(currentView);
   }
+  renderDynamicCategories();
 }
 
 allTasksBtn.addEventListener("click", () => {
