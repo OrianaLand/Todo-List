@@ -129,6 +129,27 @@ export const renderTasksByCategory = (category) => {
   }
 };
 
+export function populateCategoryDropdown() {
+  const categorySelect = document.getElementById("category");
+
+  // clear old options
+  categorySelect.innerHTML = "";
+
+  const categories = tasksManager.getAllCategories();
+
+  categories.forEach((cat) => {
+    const option = document.createElement("option");
+    option.value = cat;
+    option.textContent = cat;
+    categorySelect.appendChild(option);
+  });
+
+  const newCatOption = document.createElement("option");
+  newCatOption.value = "__new__";
+  newCatOption.textContent = "+ Add new category";
+  categorySelect.appendChild(newCatOption);
+}
+
 export const renderTodayTasks = () => {
   const allTasksUl = document.querySelector(".tasks-list");
   allTasksUl.innerText = "";
@@ -196,3 +217,13 @@ tasksListContainer.addEventListener("click", (event) => {
   // Remove DOM element
   taskCard.remove();
 });
+
+export function attachCategorySelectListener() {
+  const categorySelect = document.getElementById("category");
+
+  categorySelect.addEventListener("change", (event) => {
+    if (event.target.value === "__new__") {
+      openCategoryDialog();
+    }
+  });
+}

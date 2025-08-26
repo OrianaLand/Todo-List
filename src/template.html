@@ -101,11 +101,13 @@
           </div>
           <div class="form-input">
             <label for="category" class="input-label">Category: </label>
-            <input type="category" name="category" id="category" required />
+            <select name="category" id="category">
+              <option value="general">General</option>
+            </select>
           </div>
           <div class="form-input">
             <label for="priority" class="input-label">Priority: </label>
-            <select type="priority" name="priority" id="priority" required>
+            <select name="priority" id="priority" required>
               <option value="1">High</option>
               <option value="2">Medium</option>
               <option value="3">Low</option>

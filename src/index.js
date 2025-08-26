@@ -5,6 +5,8 @@ import { renderDynamicCategories } from "./todoDOM.js";
 import { renderCompletedTasks } from "./todoDOM.js";
 import { renderTasksByCategory } from "./todoDOM.js";
 import { renderTodayTasks } from "./todoDOM.js";
+import { populateCategoryDropdown } from "./todoDOM.js";
+import { attachCategorySelectListener } from "./todoDOM.js";
 import { openTodoDialog } from "./todoDOM.js";
 import { submitNewTodo } from "./todoDOM.js";
 import { closeTodoDialog } from "./todoDOM.js";
@@ -78,6 +80,7 @@ addNewCategoryForm.addEventListener("submit", (event) => {
   submitNewCategory();
   addNewCategoryForm.reset();
   closeCategoryDialog();
+  populateCategoryDropdown();
   renderDynamicCategories();
 });
 
@@ -91,6 +94,8 @@ dynamicCategoryList.addEventListener("click", (event) => {
 
 newTaskButtons.forEach((button) => {
   button.addEventListener("click", () => {
+    populateCategoryDropdown();
+    attachCategorySelectListener();
     openTodoDialog();
   });
 });
