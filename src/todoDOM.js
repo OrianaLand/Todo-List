@@ -136,8 +136,8 @@ export function populateCategoryDropdown() {
 
   categories.forEach((cat) => {
     const option = document.createElement("option");
-    option.value = cat;
-    option.textContent = cat;
+    option.value = cat.title;
+    option.textContent = cat.title;
     categorySelect.appendChild(option);
   });
 
@@ -180,6 +180,7 @@ export const submitNewTodo = () => {
   }
 
   addNewTodo(title, description, date, category, priority);
+  console.log(category);
   console.log(tasksManager);
 };
 
