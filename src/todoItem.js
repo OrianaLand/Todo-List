@@ -2,7 +2,7 @@ class Todo {
   constructor(title, description, dueDate, category, priority) {
     this._title = title;
     this.description = description;
-    this.dueDate = dueDate;
+    this.dueDate = new Date(dueDate);
     this.category = category;
     this.priority = priority;
     this.done = false;

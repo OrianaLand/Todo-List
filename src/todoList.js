@@ -1,5 +1,7 @@
 import Todo from "./todoItem.js";
 import { Category } from "./categories.js";
+import { format } from "date-fns";
+import { isToday } from "date-fns";
 
 class TaskCategoryManager {
   constructor() {
@@ -15,11 +17,8 @@ class TaskCategoryManager {
     return id;
   }
 
-  #formatDate(date) {
-    const yyyy = date.getFullYear();
-    const mm = String(date.getMonth() + 1).padStart(2, "0");
-    const dd = String(date.getDate()).padStart(2, "0");
-    return `${yyyy}-${mm}-${dd}`;
+  formatDate(date) {
+    return format(date, "yyyy-MM-dd");
   }
 
   addTask(task) {
@@ -63,8 +62,7 @@ class TaskCategoryManager {
   }
 
   getTodayTasks() {
-    const today = this.#formatDate(new Date());
-    return this.getAllTasks().filter((task) => task.dueDate === today);
+    return this.getAllTasks().filter((task) => isToday(task.dueDate));
   }
 
   getCompletedTasks() {

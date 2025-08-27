@@ -43,7 +43,7 @@ function createTaskCardElement(task) {
 
   title.innerText = task._title;
   description.innerText = task.description;
-  dueDate.innerText = task.dueDate;
+  dueDate.innerText = tasksManager.formatDate(task.dueDate);
   category.innerText = task.category;
   priority.innerText = task.priority;
 
