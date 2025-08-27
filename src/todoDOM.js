@@ -102,7 +102,7 @@ export const renderDynamicCategories = () => {
     categoryBtn.classList.add("dynamic-category-button");
     categoryBtn.dataset.category = category;
 
-    textSpan.innerText = category
+    textSpan.innerText = category.title
       .replace("-tasks", "") // remove "-tasks"
       .replace(/-/g, " ") // replace "-" with spaces
       .replace(/^./, (c) => c.toUpperCase()); // capitalize only the very first character

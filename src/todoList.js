@@ -1,17 +1,18 @@
 import Todo from "./todoItem.js";
+import { Category } from "./categories.js";
 
 class TaskCategoryManager {
   constructor() {
-    this.categories = {};
+    this.categories = [];
     this.allTasks = []; // preserve global order
   }
 
-  #formatKey(category) {
-    let key = category.toLowerCase().replace(/\s+/g, "-");
-    if (!key.endsWith("-tasks")) {
-      key = `${key}-tasks`;
+  #formatId(category) {
+    let id = category.toLowerCase().replace(/\s+/g, "-");
+    if (!id.endsWith("-tasks")) {
+      id = `${id}-tasks`;
     }
-    return key;
+    return id;
   }
 
   #formatDate(date) {
@@ -22,27 +23,35 @@ class TaskCategoryManager {
   }
 
   addTask(task) {
-    const key = this.#formatKey(task.category);
+    const id = this.#formatId(task.category);
 
-    if (!this.categories[key]) {
-      this.categories[key] = []; // initialize array if new category
+    let category = this.categories.find((cat) => cat.id === id);
+
+    if (!category) {
+      category = this.addCategory(task.category);
     }
 
-    this.categories[key].push(task);
+    category.items.push(task); //Add item to its category
     this.allTasks.push(task); // keep track of global insertion order
   }
 
   addCategory(category) {
-    const key = this.#formatKey(category);
-    if (!this.categories[key]) {
-      this.categories[key] = []; // initialize array if new category
+    const id = this.#formatId(category);
+
+    // check if category already exists
+    const existing = this.categories.find((cat) => cat.id === id);
+    if (existing) {
+      return existing;
     }
-    console.log(this.categories);
+    const newCategory = new Category(id, category);
+    this.categories.push(newCategory);
+    return newCategory;
   }
 
-  getTasksByCategory(category) {
-    const key = this.#formatKey(category);
-    return this.categories[key] || [];
+  getTasksByCategory(categoryTitle) {
+    const id = this.#formatId(categoryTitle);
+    const category = this.categories.find((cat) => cat.id === id);
+    return category ? category.items : [];
   }
 
   getAllTasks() {
@@ -50,7 +59,7 @@ class TaskCategoryManager {
   }
 
   getAllCategories() {
-    return Object.keys(this.categories);
+    return this.categories;
   }
 
   getTodayTasks() {
