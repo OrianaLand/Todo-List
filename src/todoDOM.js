@@ -100,17 +100,13 @@ export const renderDynamicCategories = () => {
     const counterSpan = document.createElement("span");
 
     categoryBtn.classList.add("dynamic-category-button");
-    categoryBtn.dataset.category = category;
+    categoryBtn.dataset.category = category.id;
 
-    textSpan.innerText = category.title
-      .replace("-tasks", "") // remove "-tasks"
-      .replace(/-/g, " ") // replace "-" with spaces
-      .replace(/^./, (c) => c.toUpperCase()); // capitalize only the very first character
-
+    textSpan.innerText = category.title;
     textSpan.classList.add("category-name");
 
     counterSpan.classList.add("counter");
-    counterSpan.id = category;
+    counterSpan.id = category.id;
 
     categoryBtn.append(textSpan, counterSpan);
     categoryLi.append(categoryBtn);
@@ -122,6 +118,7 @@ export const renderTasksByCategory = (category) => {
   const allTasksUl = document.querySelector(".tasks-list");
   allTasksUl.innerText = "";
   let allTasks = tasksManager.getTasksByCategory(category);
+  console.log(allTasks);
 
   for (let task of allTasks) {
     const taskCard = createTaskCardElement(task);

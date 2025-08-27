@@ -43,6 +43,7 @@ function renderView() {
     console.log("upcoming");
   } else {
     renderTasksByCategory(currentView);
+    console.log(currentView);
   }
   renderDynamicCategories();
 }
@@ -88,6 +89,7 @@ dynamicCategoryList.addEventListener("click", (event) => {
   if (event.target.closest(".dynamic-category-button")) {
     const btn = event.target.closest(".dynamic-category-button");
     currentView = btn.dataset.category; // currentView is equivalent to the category
+    console.log(currentView);
     renderView();
   }
 });
