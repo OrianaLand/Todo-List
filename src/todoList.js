@@ -68,6 +68,10 @@ class TaskCategoryManager {
   getCompletedTasks() {
     return this.getAllTasks().filter((task) => task.done);
   }
+
+  getTaskById(id) {
+    return this.allTasks.find((task) => task.id === id);
+  }
 }
 export const tasksManager = new TaskCategoryManager();
 
@@ -106,26 +110,10 @@ export const addNewCategory = (category) => {
   }
 };
 
-export const editTodo = (todosArray) => {
-  const index = prompt(
-    `which todo do you want to edit from 1 to ${todosArray.length}`
-  );
-  if (index === "" || index < 1) {
-    console.log("no todo edited");
-    return;
-  } else {
-    //Edit title only - test
-    const newTitle = prompt("Enter new title");
-    if (newTitle) {
-      console.log(
-        `Title: "${todosArray[index - 1]._title}" updated to: "${newTitle}"`
-      );
-      todosArray[index - 1].title = newTitle; //calls the setter;
-      return todosArray;
-    } else {
-      console.log("Title can't be empty");
-    }
-  }
+export const editTodo = (title, description, date, category, priority, id) => {
+  const todo = tasksManager.getTaskById(id);
+  if (!todo) return;
+  todo.editTodo(title, description, date, category, priority, id);
 };
 
 export const deleteTodo = (taskId) => {

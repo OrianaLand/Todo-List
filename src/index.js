@@ -13,6 +13,7 @@ import { closeTodoDialog } from "./todoDOM.js";
 import { openCategoryDialog } from "./todoDOM.js";
 import { submitNewCategory } from "./todoDOM.js";
 import { closeCategoryDialog } from "./todoDOM.js";
+import { getTodoById } from "./todoDOM.js";
 
 const allTasksBtn = document.querySelector(".all-tasks-btn");
 const todayTasksBtn = document.querySelector(".today-tasks-btn");
@@ -29,6 +30,8 @@ const closeNewCategoryDialogBtn = document.querySelector(
   ".close-project-dialog-btn"
 );
 const addNewCategoryForm = document.querySelector(".add-project-form");
+
+const tasksListContainer = document.querySelector(".list-container");
 
 let currentView = "all"; // default view on page load
 
@@ -73,6 +76,7 @@ newProjectBtn.addEventListener("click", () => {
 });
 
 closeNewCategoryDialogBtn.addEventListener("click", () => {
+  addNewCategoryForm.reset();
   closeCategoryDialog();
 });
 
@@ -103,6 +107,7 @@ newTaskButtons.forEach((button) => {
 });
 
 closeDialogBtn.addEventListener("click", () => {
+  addTaskForm.reset();
   closeTodoDialog();
 });
 
@@ -112,6 +117,15 @@ addTaskForm.addEventListener("submit", (event) => {
   addTaskForm.reset();
   closeTodoDialog();
   renderView();
+});
+
+tasksListContainer.addEventListener("click", (event) => {
+  if (!event.target.classList.contains("edit-item")) return;
+
+  const taskCard = event.target.closest(".item-conatiner");
+  const taskId = taskCard.dataset.id;
+
+  getTodoById(taskId);
 });
 
 renderDynamicCategories();

@@ -1,6 +1,6 @@
 class Todo {
   constructor(title, description, dueDate, category, priority) {
-    this._title = title;
+    this.title = title;
     this.description = description;
     this.dueDate = this.#parseLocalDate(dueDate);
     this.category = category;
@@ -16,16 +16,17 @@ class Todo {
     return new Date(year, month - 1, day);
   }
 
-  set title(newTitle) {
-    if (!newTitle) {
-      console.log("Titlle can't be empty");
-    } else {
-      this._title = newTitle;
-    }
-  } //Test setter
-
   toggleDoneStatus() {
     this.done = !this.done;
+  }
+
+  editTodo(title, description, dueDate, category, priority, id) {
+    this.title = title;
+    this.description = description;
+    this.dueDate = this.#parseLocalDate(dueDate);
+    this.category = category;
+    this.priority = priority;
+    this.id = id;
   }
 }
 

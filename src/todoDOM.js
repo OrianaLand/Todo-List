@@ -41,7 +41,7 @@ function createTaskCardElement(task) {
   const category = document.createElement("p");
   const priority = document.createElement("p");
 
-  title.innerText = task._title;
+  title.innerText = task.title;
   description.innerText = task.description;
   dueDate.innerText = tasksManager.formatDate(task.dueDate);
   category.innerText = task.category;
@@ -164,6 +164,12 @@ export const openTodoDialog = () => {
 };
 
 export const closeTodoDialog = () => {
+  const editingId = todoDialog.dataset.editingId;
+  if (editingId) {
+    delete todoDialog.dataset.editingId; //clear edit
+    const addTodoBtn = document.querySelector(".add-to-list");
+    addTodoBtn.innerText = "Add to-do";
+  }
   todoDialog.close();
 };
 
@@ -179,9 +185,18 @@ export const submitNewTodo = () => {
     return;
   }
 
-  addNewTodo(title, description, date, category, priority);
-  console.log(category);
-  console.log(tasksManager);
+  const editingId = todoDialog.dataset.editingId;
+  if (editingId) {
+    editTodo(title, description, date, category, priority, editingId);
+    delete todoDialog.dataset.editingId; //clear edit
+
+    const addTodoBtn = document.querySelector(".add-to-list");
+    addTodoBtn.innerText = "Add to-do";
+  } else {
+    addNewTodo(title, description, date, category, priority);
+    console.log(category);
+    console.log(tasksManager);
+  }
 };
 
 export const openCategoryDialog = () => {
@@ -200,6 +215,31 @@ export const submitNewCategory = () => {
   }
 
   addNewCategory(newCategory);
+};
+
+export const openEditTodoDialog = (todo) => {
+  //Prefill modal inputs
+  document.querySelector("#title").value = todo.title;
+  document.querySelector("#description").value = todo.description;
+  document.querySelector("#date").value = tasksManager.formatDate(todo.dueDate);
+  populateCategoryDropdown(); //Populate dropdown before filling the category input
+  document.querySelector("#category").value = todo.category;
+  document.querySelector("#priority").value = todo.priority;
+
+  //Store id to indetify edit mode
+  todoDialog.dataset.editingId = todo.id;
+
+  //Use Add todo button to submit edit
+  const editTodoBtn = document.querySelector(".add-to-list");
+  editTodoBtn.innerText = "Edit";
+
+  todoDialog.showModal();
+  document.getElementById("dummy-focus").focus();
+};
+
+export const getTodoById = (id) => {
+  const todo = tasksManager.getTaskById(id);
+  openEditTodoDialog(todo);
 };
 
 const tasksListContainer = document.querySelector(".list-container");
@@ -222,6 +262,7 @@ export function attachCategorySelectListener() {
   categorySelect.addEventListener("change", (event) => {
     if (event.target.value === "__new__") {
       openCategoryDialog();
+      categorySelect.value = ""; //reset back to default. Change default to general later on
     }
   });
 }
