@@ -14,12 +14,15 @@ import { openCategoryDialog } from "./todoDOM.js";
 import { submitNewCategory } from "./todoDOM.js";
 import { closeCategoryDialog } from "./todoDOM.js";
 import { getTodoById } from "./todoDOM.js";
+import { removeCategory } from "./todoDOM.js";
 
 const allTasksBtn = document.querySelector(".all-tasks-btn");
 const todayTasksBtn = document.querySelector(".today-tasks-btn");
 const upcomingTasksBtn = document.querySelector(".upcoming-tasks-btn");
 const completedTasksBtn = document.querySelector(".completed-tasks-btn");
+
 const dynamicCategoryList = document.querySelector(".dynamic-categories");
+const tasksListContainer = document.querySelector(".list-container");
 
 const newTaskButtons = document.querySelectorAll(".new-task");
 const closeDialogBtn = document.querySelector(".close-dialog-btn");
@@ -30,8 +33,6 @@ const closeNewCategoryDialogBtn = document.querySelector(
   ".close-project-dialog-btn"
 );
 const addNewCategoryForm = document.querySelector(".add-project-form");
-
-const tasksListContainer = document.querySelector(".list-container");
 
 let currentView = "all"; // default view on page load
 
@@ -49,6 +50,24 @@ function renderView() {
     console.log(currentView);
   }
   renderDynamicCategories();
+}
+
+function removeProject(projectId, projectTitle, categoryLi) {
+  if (
+    confirm(
+      "If you delete a Project you will lose all the tasks in it. Are you sure?"
+    )
+  ) {
+    removeCategory(projectId, projectTitle, categoryLi);
+
+    //render default view when current view is deleted
+    if (currentView === projectId) {
+      currentView = "all";
+      renderView();
+      return;
+    }
+    renderView();
+  }
 }
 
 allTasksBtn.addEventListener("click", () => {
@@ -95,6 +114,18 @@ dynamicCategoryList.addEventListener("click", (event) => {
     currentView = btn.dataset.category; // currentView is equivalent to the category
     console.log(currentView);
     renderView();
+  }
+});
+
+dynamicCategoryList.addEventListener("click", (event) => {
+  if (event.target.classList.contains("delete-category")) {
+    const categoryLi = event.target.closest("li");
+    const categoryBtn = categoryLi.querySelector(".dynamic-category-button");
+
+    const projectTitle = categoryBtn.querySelector(".category-name").innerText;
+    const projectId = categoryBtn.dataset.category;
+
+    removeProject(projectId, projectTitle, categoryLi);
   }
 });
 

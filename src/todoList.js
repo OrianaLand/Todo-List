@@ -7,6 +7,7 @@ class TaskCategoryManager {
   constructor() {
     this.categories = [];
     this.allTasks = []; // preserve global order
+    this.addCategory("General"); //Default Project
   }
 
   #formatId(category) {
@@ -120,7 +121,7 @@ export const deleteTodo = (taskId) => {
   const task = tasksManager.allTasks.find((t) => t.id === taskId);
   if (!task) return;
 
-  // Remove from category array
+  // Remove from category array using category id
   const key = task.category.toLowerCase().replace(/\s+/g, "-") + "-tasks";
   if (tasksManager.categories[key]) {
     tasksManager.categories[key] = tasksManager.categories[key].filter(
@@ -130,6 +131,21 @@ export const deleteTodo = (taskId) => {
 
   // Remove from allTasks
   tasksManager.allTasks = tasksManager.allTasks.filter((t) => t.id !== taskId);
+};
+
+export const deleteCategory = (categoryId, categoryTitle) => {
+  const category = tasksManager.categories.find((cat) => cat.id === categoryId);
+  if (!category) return;
+
+  //Remove todos from allTasks
+  tasksManager.allTasks = tasksManager.allTasks.filter(
+    (t) => t.category !== categoryTitle
+  );
+
+  //Remove from category and its todos from category array
+  tasksManager.categories = tasksManager.categories.filter(
+    (cat) => cat.id !== categoryId
+  );
 };
 
 addNewTodo(

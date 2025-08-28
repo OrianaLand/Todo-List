@@ -5,6 +5,7 @@ import { deleteTodo } from "./todoList.js";
 import { addNewCategory } from "./todoList.js";
 import { editTodo } from "./todoList.js";
 import { markTodoAsCompleted } from "./todoList.js";
+import { deleteCategory } from "./todoList.js";
 
 const todoDialog = document.querySelector(".add-todo-dialog");
 const categoryDialog = document.querySelector(".add-project-dialog");
@@ -110,6 +111,13 @@ export const renderDynamicCategories = () => {
 
     categoryBtn.append(textSpan, counterSpan);
     categoryLi.append(categoryBtn);
+
+    if (category.title !== "General") {
+      const deleteCategorybtn = document.createElement("button");
+      deleteCategorybtn.innerText = "x";
+      deleteCategorybtn.classList.add("delete-category");
+      categoryLi.append(deleteCategorybtn);
+    }
     allCategoriessUl.append(categoryLi);
   }
 };
@@ -242,6 +250,13 @@ export const getTodoById = (id) => {
   openEditTodoDialog(todo);
 };
 
+export const removeCategory = (id, title, categoryLi) => {
+  deleteCategory(id, title);
+
+  //Remove DOM element
+  categoryLi.remove();
+};
+
 const tasksListContainer = document.querySelector(".list-container");
 tasksListContainer.addEventListener("click", (event) => {
   if (!event.target.classList.contains("delete-item")) return;
@@ -262,7 +277,7 @@ export function attachCategorySelectListener() {
   categorySelect.addEventListener("change", (event) => {
     if (event.target.value === "__new__") {
       openCategoryDialog();
-      categorySelect.value = ""; //reset back to default. Change default to general later on
+      categorySelect.value = "General"; //reset back to default
     }
   });
 }
