@@ -2,6 +2,7 @@ import Todo from "./todoItem.js";
 import { Category } from "./categories.js";
 import { format } from "date-fns";
 import { isToday } from "date-fns";
+import { isSameWeek } from "date-fns";
 
 class TaskCategoryManager {
   constructor() {
@@ -64,6 +65,13 @@ class TaskCategoryManager {
 
   getTodayTasks() {
     return this.getAllTasks().filter((task) => isToday(task.dueDate));
+  }
+
+  getThisWeekTasks() {
+    const today = new Date();
+    return this.getAllTasks().filter((task) =>
+      isSameWeek(task.dueDate, today, { weekStartsOn: 1 })
+    );
   }
 
   getCompletedTasks() {

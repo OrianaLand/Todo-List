@@ -4,6 +4,7 @@ import { renderAllTasks } from "./todoDOM.js";
 import { renderDynamicCategories } from "./todoDOM.js";
 import { renderCompletedTasks } from "./todoDOM.js";
 import { renderTasksByCategory } from "./todoDOM.js";
+import { renderThisWeekTasks } from "./todoDOM.js";
 import { renderTodayTasks } from "./todoDOM.js";
 import { populateCategoryDropdown } from "./todoDOM.js";
 import { attachCategorySelectListener } from "./todoDOM.js";
@@ -43,8 +44,8 @@ function renderView() {
     renderTodayTasks();
   } else if (currentView === "completed") {
     renderCompletedTasks();
-  } else if (currentView === "upcoming") {
-    console.log("upcoming");
+  } else if (currentView === "this-week") {
+    renderThisWeekTasks();
   } else {
     renderTasksByCategory(currentView);
     console.log(currentView);
@@ -81,7 +82,7 @@ todayTasksBtn.addEventListener("click", () => {
 });
 
 upcomingTasksBtn.addEventListener("click", () => {
-  currentView = "upcoming";
+  currentView = "this-week";
   renderView();
 });
 
@@ -161,3 +162,8 @@ tasksListContainer.addEventListener("click", (event) => {
 
 renderDynamicCategories();
 renderAllTasks();
+
+//Finish upcoming tasks(maybe change it to this week)
+//bring delete item listener here instead
+
+//if no todos at all, render default view with "no todos" msg

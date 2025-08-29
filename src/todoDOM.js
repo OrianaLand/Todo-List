@@ -90,6 +90,17 @@ export const renderCompletedTasks = () => {
   }
 };
 
+export const renderThisWeekTasks = () => {
+  const allTasksUl = document.querySelector(".tasks-list");
+  allTasksUl.innerText = "";
+  let allTasks = tasksManager.getThisWeekTasks();
+
+  for (let thisWeekTask of allTasks) {
+    const taskCard = createTaskCardElement(thisWeekTask);
+    allTasksUl.append(taskCard);
+  }
+};
+
 export const renderDynamicCategories = () => {
   const allCategoriessUl = document.querySelector(".dynamic-categories");
   allCategoriessUl.innerText = "";
