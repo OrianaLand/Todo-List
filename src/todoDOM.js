@@ -68,37 +68,59 @@ function createTaskCardElement(task) {
   return taskCard;
 }
 
-export const renderAllTasks = () => {
+function renderEmptyMsg(currentView) {
   const allTasksUl = document.querySelector(".tasks-list");
   allTasksUl.innerText = "";
-  let allTasks = tasksManager.getAllTasks();
+  const emptyMsg = document.createElement("p");
 
-  for (let task of allTasks) {
+  if (currentView === "completed") {
+    emptyMsg.innerHTML = "Let’s get one done!";
+    allTasksUl.append(emptyMsg);
+    return;
+  }
+
+  emptyMsg.innerHTML = "No tasks to show here";
+  allTasksUl.append(emptyMsg);
+}
+
+function renderTasks(currentTasks, currentView) {
+  const allTasksUl = document.querySelector(".tasks-list");
+  allTasksUl.innerText = "";
+
+  if (currentTasks.length === 0) {
+    renderEmptyMsg(currentView);
+    return;
+  }
+
+  for (let task of currentTasks) {
     const taskCard = createTaskCardElement(task);
     allTasksUl.append(taskCard);
   }
+}
+
+export const renderAllTasks = (currentView) => {
+  let allTasks = tasksManager.getAllTasks();
+  renderTasks(allTasks, currentView);
 };
 
-export const renderCompletedTasks = () => {
-  const allTasksUl = document.querySelector(".tasks-list");
-  allTasksUl.innerText = "";
-  let allTasks = tasksManager.getCompletedTasks();
-
-  for (let completedTask of allTasks) {
-    const taskCard = createTaskCardElement(completedTask);
-    allTasksUl.append(taskCard);
-  }
+export const renderCompletedTasks = (currentView) => {
+  let completedTasks = tasksManager.getCompletedTasks();
+  renderTasks(completedTasks, currentView);
 };
 
-export const renderThisWeekTasks = () => {
-  const allTasksUl = document.querySelector(".tasks-list");
-  allTasksUl.innerText = "";
-  let allTasks = tasksManager.getThisWeekTasks();
+export const renderThisWeekTasks = (currentView) => {
+  let thisWeekTasks = tasksManager.getThisWeekTasks();
+  renderTasks(thisWeekTasks, currentView);
+};
 
-  for (let thisWeekTask of allTasks) {
-    const taskCard = createTaskCardElement(thisWeekTask);
-    allTasksUl.append(taskCard);
-  }
+export const renderTodayTasks = (currentView) => {
+  const todayTasks = tasksManager.getTodayTasks();
+  renderTasks(todayTasks, currentView);
+};
+
+export const renderTasksByCategory = (category) => {
+  let tasksOfCategory = tasksManager.getTasksByCategory(category);
+  renderTasks(tasksOfCategory, category);
 };
 
 export const renderDynamicCategories = () => {
@@ -133,17 +155,6 @@ export const renderDynamicCategories = () => {
   }
 };
 
-export const renderTasksByCategory = (category) => {
-  const allTasksUl = document.querySelector(".tasks-list");
-  allTasksUl.innerText = "";
-  let allTasks = tasksManager.getTasksByCategory(category);
-
-  for (let task of allTasks) {
-    const taskCard = createTaskCardElement(task);
-    allTasksUl.append(taskCard);
-  }
-};
-
 export function populateCategoryDropdown() {
   const categorySelect = document.getElementById("category");
 
@@ -164,17 +175,6 @@ export function populateCategoryDropdown() {
   newCatOption.textContent = "+ Add new category";
   categorySelect.appendChild(newCatOption);
 }
-
-export const renderTodayTasks = () => {
-  const allTasksUl = document.querySelector(".tasks-list");
-  allTasksUl.innerText = "";
-  const todayTasks = tasksManager.getTodayTasks();
-
-  for (let task of todayTasks) {
-    const taskCard = createTaskCardElement(task);
-    allTasksUl.append(taskCard);
-  }
-};
 
 export const openTodoDialog = () => {
   todoDialog.showModal();
@@ -212,8 +212,6 @@ export const submitNewTodo = () => {
     addTodoBtn.innerText = "Add to-do";
   } else {
     addNewTodo(title, description, date, category, priority);
-    console.log(category);
-    console.log(tasksManager);
   }
 };
 

@@ -41,13 +41,13 @@ let currentView = "all"; // default view on page load
 
 function renderView() {
   if (currentView === "all") {
-    renderAllTasks();
+    renderAllTasks(currentView);
   } else if (currentView === "today") {
-    renderTodayTasks();
+    renderTodayTasks(currentView);
   } else if (currentView === "completed") {
-    renderCompletedTasks();
+    renderCompletedTasks(currentView);
   } else if (currentView === "this-week") {
-    renderThisWeekTasks();
+    renderThisWeekTasks(currentView);
   } else {
     renderTasksByCategory(currentView);
   }
@@ -172,11 +172,10 @@ tasksListContainer.addEventListener("click", (event) => {
 
   // Remove DOM element
   taskCard.remove();
+  renderView();
 });
 
 renderDynamicCategories();
-renderAllTasks();
-
-//bring delete item listener here instead
+renderView();
 
 //if no todos at all, render default view with "no todos" msg
