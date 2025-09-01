@@ -137,7 +137,6 @@ export const renderTasksByCategory = (category) => {
   const allTasksUl = document.querySelector(".tasks-list");
   allTasksUl.innerText = "";
   let allTasks = tasksManager.getTasksByCategory(category);
-  console.log(allTasks);
 
   for (let task of allTasks) {
     const taskCard = createTaskCardElement(task);
@@ -267,20 +266,6 @@ export const removeCategory = (id, title, categoryLi) => {
   //Remove DOM element
   categoryLi.remove();
 };
-
-/* const tasksListContainer = document.querySelector(".list-container");
-tasksListContainer.addEventListener("click", (event) => {
-  if (!event.target.classList.contains("delete-item")) return;
-
-  const taskCard = event.target.closest(".item-conatiner");
-  if (!taskCard) return;
-
-  const taskId = taskCard.dataset.id;
-  deleteTodo(taskId);
-
-  // Remove DOM element
-  taskCard.remove();
-}); */
 
 export function attachCategorySelectListener() {
   const categorySelect = document.getElementById("category");

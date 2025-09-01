@@ -91,7 +91,6 @@ function removeTaskFromCategory(task) {
     tasksManager.categories[catIndex].items = tasksManager.categories[
       catIndex
     ].items.filter((t) => t.id !== task.id);
-    console.log(tasksManager.categories[catIndex]);
   }
 }
 
