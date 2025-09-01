@@ -82,6 +82,19 @@ class TaskCategoryManager {
     return this.allTasks.find((task) => task.id === id);
   }
 }
+
+function removeTaskFromCategory(task) {
+  const catId = task.category.toLowerCase().replace(/\s+/g, "-") + "-tasks";
+  const catIndex = tasksManager.categories.findIndex((cat) => cat.id === catId);
+
+  if (catIndex >= 0) {
+    tasksManager.categories[catIndex].items = tasksManager.categories[
+      catIndex
+    ].items.filter((t) => t.id !== task.id);
+    console.log(tasksManager.categories[catIndex]);
+  }
+}
+
 export const tasksManager = new TaskCategoryManager();
 
 export const createTodoItem = (
@@ -120,25 +133,22 @@ export const addNewCategory = (category) => {
 };
 
 export const editTodo = (title, description, date, category, priority, id) => {
-  const todo = tasksManager.getTaskById(id);
-  if (!todo) return;
-  todo.editTodo(title, description, date, category, priority, id);
+  const task = tasksManager.getTaskById(id);
+  const currentCat = task.category; //current category
+  if (!task) return;
+  if (currentCat !== category) {
+    removeTaskFromCategory(task);
+    task.editTodo(title, description, date, category, priority, id);
+    tasksManager.addTask(task);
+  }
 };
 
 export const deleteTodo = (taskId) => {
-  const task = tasksManager.allTasks.find((t) => t.id === taskId);
+  const task = tasksManager.getTaskById(taskId);
   if (!task) return;
 
   // Remove from category array
-  const catId = task.category.toLowerCase().replace(/\s+/g, "-") + "-tasks";
-  const catIndex = tasksManager.categories.findIndex((cat) => cat.id === catId);
-
-  if (catIndex >= 0) {
-    tasksManager.categories[catIndex].items = tasksManager.categories[
-      catIndex
-    ].items.filter((t) => t.id !== taskId);
-    console.log(tasksManager.categories[catIndex]);
-  }
+  removeTaskFromCategory(task);
 
   // Remove from allTasks
   tasksManager.allTasks = tasksManager.allTasks.filter((t) => t.id !== taskId);
