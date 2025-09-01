@@ -129,12 +129,15 @@ export const deleteTodo = (taskId) => {
   const task = tasksManager.allTasks.find((t) => t.id === taskId);
   if (!task) return;
 
-  // Remove from category array using category id
-  const key = task.category.toLowerCase().replace(/\s+/g, "-") + "-tasks";
-  if (tasksManager.categories[key]) {
-    tasksManager.categories[key] = tasksManager.categories[key].filter(
-      (t) => t.id !== taskId
-    );
+  // Remove from category array
+  const catId = task.category.toLowerCase().replace(/\s+/g, "-") + "-tasks";
+  const catIndex = tasksManager.categories.findIndex((cat) => cat.id === catId);
+
+  if (catIndex >= 0) {
+    tasksManager.categories[catIndex].items = tasksManager.categories[
+      catIndex
+    ].items.filter((t) => t.id !== taskId);
+    console.log(tasksManager.categories[catIndex]);
   }
 
   // Remove from allTasks

@@ -163,7 +163,6 @@ tasksListContainer.addEventListener("click", (event) => {
 renderDynamicCategories();
 renderAllTasks();
 
-//Finish upcoming tasks(maybe change it to this week)
 //bring delete item listener here instead
 
 //if no todos at all, render default view with "no todos" msg
