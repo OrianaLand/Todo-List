@@ -140,6 +140,7 @@ export const editTodo = (title, description, date, category, priority, id) => {
     task.editTodo(title, description, date, category, priority, id);
     tasksManager.addTask(task);
   }
+  task.editTodo(title, description, date, category, priority, id);
 };
 
 export const deleteTodo = (taskId) => {
