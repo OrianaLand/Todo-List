@@ -268,7 +268,7 @@ export const removeCategory = (id, title, categoryLi) => {
   categoryLi.remove();
 };
 
-const tasksListContainer = document.querySelector(".list-container");
+/* const tasksListContainer = document.querySelector(".list-container");
 tasksListContainer.addEventListener("click", (event) => {
   if (!event.target.classList.contains("delete-item")) return;
 
@@ -280,7 +280,7 @@ tasksListContainer.addEventListener("click", (event) => {
 
   // Remove DOM element
   taskCard.remove();
-});
+}); */
 
 export function attachCategorySelectListener() {
   const categorySelect = document.getElementById("category");

@@ -17,6 +17,7 @@ import { submitNewCategory } from "./todoDOM.js";
 import { closeCategoryDialog } from "./todoDOM.js";
 import { getTodoById } from "./todoDOM.js";
 import { removeCategory } from "./todoDOM.js";
+import { deleteTodo } from "./todoList.js";
 
 const allTasksBtn = document.querySelector(".all-tasks-btn");
 const todayTasksBtn = document.querySelector(".today-tasks-btn");
@@ -160,8 +161,19 @@ tasksListContainer.addEventListener("click", (event) => {
 
   const todo = getTodoById(taskId);
   openEditTodoDialog(todo);
+});
 
-  console.log(todo);
+tasksListContainer.addEventListener("click", (event) => {
+  if (!event.target.classList.contains("delete-item")) return;
+
+  const taskCard = event.target.closest(".item-conatiner");
+  if (!taskCard) return;
+
+  const taskId = taskCard.dataset.id;
+  deleteTodo(taskId);
+
+  // Remove DOM element
+  taskCard.remove();
 });
 
 renderDynamicCategories();
