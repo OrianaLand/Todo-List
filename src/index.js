@@ -1,22 +1,25 @@
 import "./styles.css";
 
-import { renderAllTasks } from "./todoDOM.js";
-import { renderDynamicCategories } from "./todoDOM.js";
-import { renderCompletedTasks } from "./todoDOM.js";
-import { renderTasksByCategory } from "./todoDOM.js";
-import { renderThisWeekTasks } from "./todoDOM.js";
-import { renderTodayTasks } from "./todoDOM.js";
-import { populateCategoryDropdown } from "./todoDOM.js";
-import { attachCategorySelectListener } from "./todoDOM.js";
-import { openTodoDialog } from "./todoDOM.js";
-import { openEditTodoDialog } from "./todoDOM.js";
-import { submitNewTodo } from "./todoDOM.js";
-import { closeTodoDialog } from "./todoDOM.js";
-import { openCategoryDialog } from "./todoDOM.js";
-import { submitNewCategory } from "./todoDOM.js";
-import { closeCategoryDialog } from "./todoDOM.js";
-import { getTodoById } from "./todoDOM.js";
-import { removeCategory } from "./todoDOM.js";
+import {
+  renderAllTasks,
+  renderDynamicCategories,
+  renderCompletedTasks,
+  renderTasksByCategory,
+  renderThisWeekTasks,
+  renderTodayTasks,
+  populateCategoryDropdown,
+  attachCategorySelectListener,
+  openTodoDialog,
+  openEditTodoDialog,
+  submitNewTodo,
+  closeTodoDialog,
+  openCategoryDialog,
+  submitNewCategory,
+  closeCategoryDialog,
+  getTodoById,
+  removeCategory,
+} from "./todoDOM.js";
+
 import { deleteTodo } from "./todoList.js";
 
 const allTasksBtn = document.querySelector(".all-tasks-btn");
@@ -177,5 +180,3 @@ tasksListContainer.addEventListener("click", (event) => {
 
 renderDynamicCategories();
 renderView();
-
-//if no todos at all, render default view with "no todos" msg

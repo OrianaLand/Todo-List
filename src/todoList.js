@@ -1,8 +1,6 @@
 import Todo from "./todoItem.js";
 import { Category } from "./categories.js";
-import { format } from "date-fns";
-import { isToday } from "date-fns";
-import { isSameWeek } from "date-fns";
+import { format, isToday, isSameWeek } from "date-fns";
 
 class TaskCategoryManager {
   constructor() {

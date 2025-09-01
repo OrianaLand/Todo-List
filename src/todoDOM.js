@@ -1,11 +1,10 @@
-import { tasksManager } from "./todoList.js";
-import { createTodoItem } from "./todoList.js";
-import { addNewTodo } from "./todoList.js";
-import { deleteTodo } from "./todoList.js";
-import { addNewCategory } from "./todoList.js";
-import { editTodo } from "./todoList.js";
-import { markTodoAsCompleted } from "./todoList.js";
-import { deleteCategory } from "./todoList.js";
+import {
+  tasksManager,
+  addNewTodo,
+  addNewCategory,
+  editTodo,
+  deleteCategory,
+} from "./todoList.js";
 
 const todoDialog = document.querySelector(".add-todo-dialog");
 const categoryDialog = document.querySelector(".add-project-dialog");
