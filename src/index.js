@@ -9,6 +9,7 @@ import { renderTodayTasks } from "./todoDOM.js";
 import { populateCategoryDropdown } from "./todoDOM.js";
 import { attachCategorySelectListener } from "./todoDOM.js";
 import { openTodoDialog } from "./todoDOM.js";
+import { openEditTodoDialog } from "./todoDOM.js";
 import { submitNewTodo } from "./todoDOM.js";
 import { closeTodoDialog } from "./todoDOM.js";
 import { openCategoryDialog } from "./todoDOM.js";
@@ -157,7 +158,10 @@ tasksListContainer.addEventListener("click", (event) => {
   const taskCard = event.target.closest(".item-conatiner");
   const taskId = taskCard.dataset.id;
 
-  getTodoById(taskId);
+  const todo = getTodoById(taskId);
+  openEditTodoDialog(todo);
+
+  console.log(todo);
 });
 
 renderDynamicCategories();

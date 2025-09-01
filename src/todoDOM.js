@@ -258,7 +258,7 @@ export const openEditTodoDialog = (todo) => {
 
 export const getTodoById = (id) => {
   const todo = tasksManager.getTaskById(id);
-  openEditTodoDialog(todo);
+  return todo;
 };
 
 export const removeCategory = (id, title, categoryLi) => {
