@@ -1,5 +1,6 @@
 import Todo from "./todoItem.js";
 import { Category } from "./categories.js";
+import { TodoStorage } from "./todoStorage.js";
 import { format, isToday, isSameWeek } from "date-fns";
 
 class TaskCategoryManager {
@@ -9,19 +10,41 @@ class TaskCategoryManager {
     this.addCategory("General"); //Default Project
   }
 
-  /*  init() {
-    // get localstorage
-    const localStorageCategories = JSON.parse(
-      localStorage.getItem("categories")
-    );
+  #saveToStorage() {
+    TodoStorage.saveTasksToStorage(this.allTasks);
+    TodoStorage.saveCategoriesToStorage(this.categories);
+  }
 
-    if (
-      localStorageCategories &&
-      Object.keys(localStorageCategories).length > 0
-    ) {
-      this.categories = { ...localStorageCategories };
-    }
-  } */
+  #addSampleData() {
+    const sampleTodos = [
+      {
+        title: "Your title goes here",
+        description: "Then I add a short description",
+        dueDate: "2025-09-27",
+        category: "General",
+        priority: 1,
+      },
+      {
+        title: "Get hair cut",
+        description: "Check their calendar first",
+        dueDate: "2025-10-15",
+        category: "Personal",
+        priority: 2,
+      },
+    ];
+
+    sampleTodos.forEach((todo) => {
+      const newTodo = new Todo(
+        todo.title,
+        todo.description,
+        todo.dueDate,
+        todo.category,
+        todo.priority
+      );
+      this.addTask(newTodo);
+    });
+  }
+
   #formatId(category) {
     let id = category.toLowerCase().replace(/\s+/g, "-");
     if (!id.endsWith("-tasks")) {
@@ -57,15 +80,6 @@ class TaskCategoryManager {
     }
     const newCategory = new Category(id, category);
     this.categories.push(newCategory);
-
-    /* const currentLocalStorageCategories = JSON.stringify(
-      localStorage.getItem("categories")
-    );
-
-    localStorage.setItem("categories", {
-      ...currentLocalStorageCategories,
-      newCategory,
-    }); */
     return newCategory;
   }
 
