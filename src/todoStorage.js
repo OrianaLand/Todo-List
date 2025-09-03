@@ -126,4 +126,16 @@ export class TodoStorage {
       console.error("Failed to clear localStorage:", error);
     }
   }
+
+  // Check if localStorage is available
+  static isStorageAvailable() {
+    try {
+      const test = "__storage_test__";
+      localStorage.setItem(test, test);
+      localStorage.removeItem(test);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 }
