@@ -7,7 +7,18 @@ class TaskCategoryManager {
   constructor() {
     this.categories = [];
     this.allTasks = []; // preserve global order
-    this.addCategory("General"); //Default Project
+    this.DEFAULT_CATEGORY = "General";
+  }
+
+  #ensureGeneralCategory() {
+    const generalId = this.#formatId(this.DEFAULT_CATEGORY);
+    const generalExists = this.categories.find((cat) => cat.id === generalId);
+
+    if (!generalExists) {
+      const generalCategory = new Category(generalId, this.DEFAULT_CATEGORY);
+      this.categories.unshift(generalCategory);
+      console.log("Added missing General category");
+    }
   }
 
   #saveToStorage() {
