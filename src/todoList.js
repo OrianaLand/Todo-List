@@ -9,6 +9,19 @@ class TaskCategoryManager {
     this.addCategory("General"); //Default Project
   }
 
+  /*  init() {
+    // get localstorage
+    const localStorageCategories = JSON.parse(
+      localStorage.getItem("categories")
+    );
+
+    if (
+      localStorageCategories &&
+      Object.keys(localStorageCategories).length > 0
+    ) {
+      this.categories = { ...localStorageCategories };
+    }
+  } */
   #formatId(category) {
     let id = category.toLowerCase().replace(/\s+/g, "-");
     if (!id.endsWith("-tasks")) {
@@ -18,7 +31,7 @@ class TaskCategoryManager {
   }
 
   formatDate(date) {
-    return format(date, "yyyy-MM-dd");
+    return format(date, "dd MMM yyyy");
   }
 
   addTask(task) {
@@ -44,6 +57,15 @@ class TaskCategoryManager {
     }
     const newCategory = new Category(id, category);
     this.categories.push(newCategory);
+
+    /* const currentLocalStorageCategories = JSON.stringify(
+      localStorage.getItem("categories")
+    );
+
+    localStorage.setItem("categories", {
+      ...currentLocalStorageCategories,
+      newCategory,
+    }); */
     return newCategory;
   }
 

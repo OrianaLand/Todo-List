@@ -5,6 +5,7 @@ import {
   editTodo,
   deleteCategory,
 } from "./todoList.js";
+import { format } from "date-fns";
 
 const todoDialog = document.querySelector(".add-todo-dialog");
 const categoryDialog = document.querySelector(".add-project-dialog");
@@ -236,7 +237,7 @@ export const openEditTodoDialog = (todo) => {
   //Prefill modal inputs
   document.querySelector("#title").value = todo.title;
   document.querySelector("#description").value = todo.description;
-  document.querySelector("#date").value = tasksManager.formatDate(todo.dueDate);
+  document.querySelector("#date").value = format(todo.dueDate, "yyyy-MM-dd");
   populateCategoryDropdown(); //Populate dropdown before filling the category input
   document.querySelector("#category").value = todo.category;
   document.querySelector("#priority").value = todo.priority;
