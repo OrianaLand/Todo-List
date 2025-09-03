@@ -117,7 +117,7 @@ export class TodoStorage {
   }
 
   //Clear all data (this is for testing purposes)
-  static clearAllDate() {
+  static clearAllData() {
     try {
       Object.values(this.STORAGE_KEYS).forEach((key) => {
         localStorage.removeItem(key);
