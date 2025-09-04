@@ -11,11 +11,8 @@ class Todo {
 
   //helper funtion to store Date object in local time ARG (UTC-3)
   #parseLocalDate(dateStr) {
-    /*     if (dateStr instanceof Date) return dateStr; // safety check
-    const [year, month, day] = dateStr.split("-").map(Number);
-    return new Date(year, month - 1, day); */
     if (dateStr instanceof Date) return dateStr; // already a Date object
-    if (!dateStr) return null; // handle null/undefined
+    if (!dateStr) return null;
 
     // Try ISO string
     const parsedDate = new Date(dateStr);

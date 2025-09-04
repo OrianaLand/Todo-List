@@ -1,7 +1,7 @@
 import Todo from "./todoItem.js";
 import { Category } from "./categories.js";
 import { TodoStorage } from "./todoStorage.js";
-import { format, isToday, isSameWeek, isValid } from "date-fns";
+import { format, isToday, isSameWeek } from "date-fns";
 
 class TaskCategoryManager {
   constructor() {
@@ -211,6 +211,34 @@ class TaskCategoryManager {
     this.#saveToStorage();
   }
 
+  moveTaskToCategory(taskId, newCategory) {
+    const task = this.allTasks.find((t) => t.id === taskId);
+    if (!task) return false;
+
+    const oldCategoryId = this.#formatId(task.category);
+    const oldCategory = this.categories.find((cat) => cat.id === oldCategoryId);
+
+    // Remove from old category
+    if (oldCategory) {
+      oldCategory.items = oldCategory.items.filter((t) => t.id !== taskId);
+    }
+
+    // Update task category
+    task.category = newCategory;
+
+    // Add to new category
+    const newCategoryId = this.#formatId(newCategory);
+    let category = this.categories.find((cat) => cat.id === newCategoryId);
+
+    if (!category) {
+      category = this.addCategory(newCategory);
+    }
+
+    category.items.push(task);
+    this.#saveToStorage();
+    return true;
+  }
+
   getTasksByCategory(categoryTitle) {
     const id = this.#formatId(categoryTitle);
     const category = this.categories.find((cat) => cat.id === id);
@@ -295,14 +323,20 @@ export const addNewCategory = (category) => {
 
 export const editTodo = (title, description, date, category, priority, id) => {
   const task = tasksManager.getTaskById(id);
-  const currentCat = task.category; //current category
   if (!task) return;
-  if (currentCat !== category) {
-    removeTaskFromCategory(task);
-    task.editTodo(title, description, date, category, priority, id);
-    tasksManager.addTask(task);
-  }
+
+  const currentCat = task.category;
+
+  // Update task properties first
   task.editTodo(title, description, date, category, priority, id);
+
+  // If category changed, move the task
+  if (currentCat !== category) {
+    tasksManager.moveTaskToCategory(id, category);
+  } else {
+    // Just save the changes
+    tasksManager.updateTask(id);
+  }
 };
 
 export const deleteTodo = (taskId) => {
