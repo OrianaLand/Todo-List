@@ -3,6 +3,8 @@ import { Category } from "./categories.js";
 import { TodoStorage } from "./todoStorage.js";
 import { format, isToday, isSameWeek } from "date-fns";
 
+TodoStorage.clearAllData();
+
 class TaskCategoryManager {
   constructor() {
     this.categories = [];
@@ -14,6 +16,49 @@ class TaskCategoryManager {
 
   #initializeData() {
     const storedCategories = TodoStorage.loadCategoriesFromStorage();
+    const storedTasks = TodoStorage.loadTasksFromStorage();
+
+    const catsRaw = localStorage.getItem(TodoStorage.STORAGE_KEYS.CATEGORIES);
+    const tasksRaw = localStorage.getItem(TodoStorage.STORAGE_KEYS.TASKS);
+
+    const isFirstRun = catsRaw === null && tasksRaw === null;
+    if (isFirstRun) {
+      // First-ever run → seed sample data
+      this.#ensureGeneralCategory();
+      this.#addSampleData();
+      this.#saveToStorage();
+      console.log("Initialized with default Data (first run)");
+    } else {
+      // Not first run → load whatever exists (even if arrays are empty)
+      this.categories = storedCategories;
+      this.allTasks = storedTasks;
+
+      this.#ensureGeneralCategory();
+      this.#rebuildCategoryItemsArray();
+      console.log("Data loaded from localStorage");
+    }
+
+    /*    const hasData =
+      Array.isArray(storedCategories) &&
+      storedCategories.length > 0 &&
+      Array.isArray(storedTasks) &&
+      storedTasks.length > 0;
+
+    if (hasData) {
+      // Load existing data
+      this.categories = storedCategories;
+      this.allTasks = storedTasks;
+
+      this.#ensureGeneralCategory();
+      this.#rebuildCategoryItemsArray();
+      console.log("Data loaded from localStorage");
+    } else {
+      // First-time use → load sample data
+      this.#ensureGeneralCategory();
+      this.#addSampleData();
+      console.log("Initialized with default Data");
+    } */
+    /*     const storedCategories = TodoStorage.loadCategoriesFromStorage();
     const storedTasks = TodoStorage.loadTasksFromStorage();
 
     if (storedCategories && storedTasks) {
@@ -29,7 +74,7 @@ class TaskCategoryManager {
       this.#ensureGeneralCategory();
       this.#addSampleData();
       console.log("Initialized with default Data");
-    }
+    } */
   }
 
   #rebuildCategoryItemsArray() {
@@ -85,7 +130,7 @@ class TaskCategoryManager {
         title: "Your title goes here",
         description: "Then you add a short description",
         dueDate: "2025-09-27",
-        category: "General",
+        category: "Work",
         priority: 1,
       },
       {
@@ -204,7 +249,7 @@ class TaskCategoryManager {
 
   // Check if a category can be deleted
   canDeleteCategory(categoryTitle) {
-    return categoryTitle !== this.PROTECTED_CATEGORY;
+    return categoryTitle !== this.DEFAULT_CATEGORY;
   }
 
   updateTask(taskId) {

@@ -122,6 +122,7 @@ export class TodoStorage {
       Object.values(this.STORAGE_KEYS).forEach((key) => {
         localStorage.removeItem(key);
       });
+      localStorage.clear();
     } catch (error) {
       console.error("Failed to clear localStorage:", error);
     }
