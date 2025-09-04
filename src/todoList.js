@@ -306,29 +306,18 @@ export const editTodo = (title, description, date, category, priority, id) => {
 };
 
 export const deleteTodo = (taskId) => {
-  const task = tasksManager.getTaskById(taskId);
-  if (!task) return;
-
-  // Remove from category array
-  removeTaskFromCategory(task);
-
-  // Remove from allTasks
-  tasksManager.allTasks = tasksManager.allTasks.filter((t) => t.id !== taskId);
+  return tasksManager.deleteTask(taskId);
 };
 
 export const deleteCategory = (categoryId, categoryTitle) => {
-  const category = tasksManager.categories.find((cat) => cat.id === categoryId);
-  if (!category) return;
+  if (!tasksManager.canDeleteCategory(categoryTitle)) {
+    alert(
+      "The General category cannot be deleted as it's required by the system."
+    );
+    return false;
+  }
 
-  //Remove todos from allTasks
-  tasksManager.allTasks = tasksManager.allTasks.filter(
-    (t) => t.category !== categoryTitle
-  );
-
-  //Remove from category and its todos from category array
-  tasksManager.categories = tasksManager.categories.filter(
-    (cat) => cat.id !== categoryId
-  );
+  return tasksManager.deleteCategory(categoryId, categoryTitle);
 };
 
 /* addNewTodo(
