@@ -8,6 +8,52 @@ class TaskCategoryManager {
     this.categories = [];
     this.allTasks = []; // preserve global order
     this.DEFAULT_CATEGORY = "General";
+
+    this.#initializeData();
+  }
+
+  #initializeData() {
+    const storedCategories = TodoStorage.loadCategoriesFromStorage();
+    const storedTasks = TodoStorage.loadTasksFromStorage();
+
+    if (storedCategories && storedTasks) {
+      //Load existing data
+      this.categories = storedCategories;
+      this.allTasks = storedTasks;
+
+      //Always ensure General category exists
+      this.#ensureGeneralCategory();
+      this.#rebuildCategoryItemsArray();
+      console.log("Data loaded from localStorage");
+    } else {
+      this.#ensureGeneralCategory();
+      this.#addSampleData();
+      console.log("Initialized with default Data");
+    }
+  }
+
+  #rebuildCategoryItemsArray() {
+    this.categories.forEach((cat) => (cat.items = []));
+
+    this.allTasks.forEach((task) => {
+      const categoryId = this.#formatId(task.category);
+      let category = this.categories.find((cat) => cat.id === categoryId);
+
+      //If task category doesn't exist, move it to General category
+      if (!category) {
+        console.warn(
+          `Category ${task.category} not found, moving task to General`
+        );
+        task.category = this.DEFAULT_CATEGORY;
+        category = this.categories.find(
+          (cat) => cat.id === this.#formatId(this.DEFAULT_CATEGORY)
+        );
+      }
+
+      if (category) {
+        category.items.push(task);
+      }
+    });
   }
 
   #ensureGeneralCategory() {
@@ -30,7 +76,7 @@ class TaskCategoryManager {
     const sampleTodos = [
       {
         title: "Your title goes here",
-        description: "Then I add a short description",
+        description: "Then you add a short description",
         dueDate: "2025-09-27",
         category: "General",
         priority: 1,
@@ -79,6 +125,8 @@ class TaskCategoryManager {
 
     category.items.push(task); //Add item to its category
     this.allTasks.push(task); // keep track of global insertion order
+
+    this.#saveToStorage();
   }
 
   addCategory(category) {
