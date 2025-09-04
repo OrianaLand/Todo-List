@@ -158,6 +158,59 @@ class TaskCategoryManager {
     return newCategory;
   }
 
+  deleteTask(taskId) {
+    const task = this.allTasks.find((t) => t.id === taskId);
+    if (!task) return false;
+
+    const categoryId = this.#formatId(task.category);
+    const category = this.categories.find((cat) => cat.id === categoryId);
+
+    //Remove from category
+    if (category) {
+      category.items = category.items.filter((t) => t.id !== taskId);
+    }
+
+    //Remove from all tasks
+    this.allTasks = this.allTasks.filter((t) => t.id !== taskId);
+
+    this.#saveToStorage();
+    return true;
+  }
+
+  deleteCategory(categoryId, categoryTitle) {
+    // Protect General category from deletion
+    if (categoryTitle === this.DEFAULT_CATEGORY) {
+      console.warn("Cannot delete default General category");
+      return false;
+    }
+
+    const category = this.categories.find((cat) => cat.id === categoryId);
+    if (!category) return false;
+
+    // Remove all tasks that belong to this category
+    this.allTasks = this.allTasks.filter(
+      (task) => task.category !== categoryTitle
+    );
+
+    // Remove the category itself
+    this.categories = this.categories.filter((cat) => cat.id !== categoryId);
+
+    // Rebuild category items to reflect the moved tasks
+    this.#rebuildCategoryItemsArray();
+
+    this.#saveToStorage();
+    return true;
+  }
+
+  // Check if a category can be deleted
+  canDeleteCategory(categoryTitle) {
+    return categoryTitle !== this.PROTECTED_CATEGORY;
+  }
+
+  updateTask(taskId) {
+    this.#saveToStorage();
+  }
+
   getTasksByCategory(categoryTitle) {
     const id = this.#formatId(categoryTitle);
     const category = this.categories.find((cat) => cat.id === id);
@@ -278,7 +331,7 @@ export const deleteCategory = (categoryId, categoryTitle) => {
   );
 };
 
-addNewTodo(
+/* addNewTodo(
   "Download movie",
   "Cars II on plex/overseer",
   "2025-08-21",
@@ -319,4 +372,4 @@ addNewTodo(
   "2025-08-21",
   "Health",
   1
-);
+); */
