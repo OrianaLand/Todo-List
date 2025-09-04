@@ -3,6 +3,7 @@ import {
   addNewTodo,
   addNewCategory,
   editTodo,
+  toggleTodoDone,
   deleteCategory,
 } from "./todoList.js";
 import { format } from "date-fns";
@@ -24,7 +25,7 @@ function createTaskCardElement(task) {
   checkbox.checked = task.done; // reflect initial state
 
   checkbox.addEventListener("change", () => {
-    task.toggleDoneStatus(); // flips the done property
+    toggleTodoDone(task.id); // flips the done property
     title.style.textDecoration = task.done ? "line-through" : "none"; //test. Send to CSS when working with styles
     /* if (task.done) {
       taskCard.classList.add("completed");

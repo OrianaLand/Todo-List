@@ -220,6 +220,15 @@ class TaskCategoryManager {
     this.#saveToStorage();
   }
 
+  toggleTaskDone(taskId) {
+    const task = this.allTasks.find((t) => t.id === taskId);
+    if (!task) return false;
+
+    task.toggleDoneStatus();
+    this.#saveToStorage();
+    return true;
+  }
+
   moveTaskToCategory(taskId, newCategory) {
     const task = this.allTasks.find((t) => t.id === taskId);
     if (!task) return false;
@@ -346,6 +355,10 @@ export const editTodo = (title, description, date, category, priority, id) => {
     // Just save the changes
     tasksManager.updateTask(id);
   }
+};
+
+export const toggleTodoDone = (taskId) => {
+  return tasksManager.toggleTaskDone(taskId);
 };
 
 export const deleteTodo = (taskId) => {

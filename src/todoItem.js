@@ -25,6 +25,7 @@ class Todo {
 
   toggleDoneStatus() {
     this.done = !this.done;
+    console.log("status toggled");
   }
 
   editTodo(title, description, dueDate, category, priority, id) {
