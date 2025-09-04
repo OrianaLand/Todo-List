@@ -3,7 +3,7 @@ import { Category } from "./categories.js";
 import { TodoStorage } from "./todoStorage.js";
 import { format, isToday, isSameWeek } from "date-fns";
 
-TodoStorage.clearAllData();
+/* TodoStorage.clearAllData(); */
 
 class TaskCategoryManager {
   constructor() {
@@ -18,10 +18,12 @@ class TaskCategoryManager {
     const storedCategories = TodoStorage.loadCategoriesFromStorage();
     const storedTasks = TodoStorage.loadTasksFromStorage();
 
+    // Check if the keys exist in localStorage at all
     const catsRaw = localStorage.getItem(TodoStorage.STORAGE_KEYS.CATEGORIES);
     const tasksRaw = localStorage.getItem(TodoStorage.STORAGE_KEYS.TASKS);
 
     const isFirstRun = catsRaw === null && tasksRaw === null;
+
     if (isFirstRun) {
       // First-ever run → seed sample data
       this.#ensureGeneralCategory();
@@ -29,7 +31,7 @@ class TaskCategoryManager {
       this.#saveToStorage();
       console.log("Initialized with default Data (first run)");
     } else {
-      // Not first run → load whatever exists (even if arrays are empty)
+      // Not the first run load whatever exists (even if arrays are empty)
       this.categories = storedCategories;
       this.allTasks = storedTasks;
 
@@ -37,44 +39,6 @@ class TaskCategoryManager {
       this.#rebuildCategoryItemsArray();
       console.log("Data loaded from localStorage");
     }
-
-    /*    const hasData =
-      Array.isArray(storedCategories) &&
-      storedCategories.length > 0 &&
-      Array.isArray(storedTasks) &&
-      storedTasks.length > 0;
-
-    if (hasData) {
-      // Load existing data
-      this.categories = storedCategories;
-      this.allTasks = storedTasks;
-
-      this.#ensureGeneralCategory();
-      this.#rebuildCategoryItemsArray();
-      console.log("Data loaded from localStorage");
-    } else {
-      // First-time use → load sample data
-      this.#ensureGeneralCategory();
-      this.#addSampleData();
-      console.log("Initialized with default Data");
-    } */
-    /*     const storedCategories = TodoStorage.loadCategoriesFromStorage();
-    const storedTasks = TodoStorage.loadTasksFromStorage();
-
-    if (storedCategories && storedTasks) {
-      //Load existing data
-      this.categories = storedCategories;
-      this.allTasks = storedTasks;
-
-      //Always ensure General category exists
-      this.#ensureGeneralCategory();
-      this.#rebuildCategoryItemsArray();
-      console.log("Data loaded from localStorage");
-    } else {
-      this.#ensureGeneralCategory();
-      this.#addSampleData();
-      console.log("Initialized with default Data");
-    } */
   }
 
   #rebuildCategoryItemsArray() {
@@ -398,46 +362,3 @@ export const deleteCategory = (categoryId, categoryTitle) => {
 
   return tasksManager.deleteCategory(categoryId, categoryTitle);
 };
-
-/* addNewTodo(
-  "Download movie",
-  "Cars II on plex/overseer",
-  "2025-08-21",
-  "Personal",
-  1
-);
-addNewTodo(
-  "Todo list from TOP",
-  "Divide and conquer. From small to big",
-  "2025-10-01",
-  "Study",
-  2
-);
-addNewTodo(
-  "Buy Ibuprofen",
-  "Go to farmacity they have 2x1",
-  "2025-09-01",
-  "Health",
-  1
-);
-addNewTodo(
-  "Call the supplier",
-  "Get an updated list of prices",
-  "2025-09-12",
-  "Work",
-  1
-);
-addNewTodo(
-  "Dye hair",
-  "get the dye at the pharmacy",
-  "2025-08-30",
-  "Personal",
-  1
-);
-addNewTodo(
-  "Therapy sesion",
-  "talk with Dr Vera about psi med",
-  "2025-08-21",
-  "Health",
-  1
-); */
