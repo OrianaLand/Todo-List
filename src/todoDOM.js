@@ -27,11 +27,6 @@ function createTaskCardElement(task) {
   checkbox.addEventListener("change", () => {
     toggleTodoDone(task.id); // flips the done property
     title.style.textDecoration = task.done ? "line-through" : "none"; //test. Send to CSS when working with styles
-    /* if (task.done) {
-      taskCard.classList.add("completed");
-    } else {
-      taskCard.classList.remove("completed");
-    } */
   });
 
   const cardInfo = document.createElement("div");

@@ -29,28 +29,61 @@ body{
     height: 100vh;
 }
 
-/* --- Layout styles ---*/
+/* ---Custom properties--- */
+:root {
+    --bg-color-primary: #fdf9f9;
+    --bg-color-seconday: #fcfaf8;
+   
+
+    --accent-color-primary: #1a9cb8;
+    --accent-color-seconday: #1a94b8;
+
+    --text-color-primary: #111111;
+    --text-color-secondary: #000000b3;
+    
+
+    --transition-default: all 0.2s ease;
+}
+
+body.dark-mode{
+    --bg-color-primary: #3b444b;
+    --bg-color-secondary: #414a4c;
+
+    --accent-color-primary: #1a9cb8;
+    --accent-color-seconday: #1a94b8;
+
+    --text-color-primary: #fdf9f9;
+    --text-color-secondary: #ffffffb3;
+
+}
+
+.sidebar{
+    background-color: var(--bg-color-secondary);
+    color: var(--accent-color-primary)
+}
+
+.main{
+    background-color: var(--bg-color-primary);
+    color: var(--text-color-primary);
+}
+
+/* --- Layout styles Desktop ---*/
 @media only screen and (min-width: 780px) {
 
  .content {
     display: grid;
-    gap: 10px;
+    /* gap: 10px; */
     height: 100%;
     grid-template-columns: 1fr 4fr;
     grid-template-rows: 1fr 4fr;
  }
-/*  .header {
-    background-color: blueviolet;
-    grid-column: 2 / -1;
-    grid-row: 1/2;
- } */
  .sidebar{
-    background-color: lightseagreen;
+   
     grid-row: 1/-1;
 
  }
  .main {
-    background-color: antiquewhite;
+    
     grid-column: 2 / -1;
     grid-row: 1 /-1;
  }

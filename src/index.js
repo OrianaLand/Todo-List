@@ -22,6 +22,9 @@ import {
 
 import { deleteTodo } from "./todoList.js";
 
+const darkModeBtn = document.querySelector(".dark-mode-btn");
+const body = document.querySelector("body");
+
 const allTasksBtn = document.querySelector(".all-tasks-btn");
 const todayTasksBtn = document.querySelector(".today-tasks-btn");
 const upcomingTasksBtn = document.querySelector(".upcoming-tasks-btn");
@@ -55,6 +58,10 @@ function renderView() {
     renderTasksByCategory(currentView);
   }
   renderDynamicCategories();
+}
+
+function toggleDarkMode() {
+  body.classList.toggle("dark-mode");
 }
 
 function removeProject(projectId, projectTitle, categoryLi) {
@@ -176,6 +183,10 @@ tasksListContainer.addEventListener("click", (event) => {
   // Remove DOM element
   taskCard.remove();
   renderView();
+});
+
+darkModeBtn.addEventListener("click", () => {
+  toggleDarkMode();
 });
 
 renderDynamicCategories();
