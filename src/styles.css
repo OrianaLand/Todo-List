@@ -27,6 +27,9 @@ ul{
 
 body{
     height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr;
 }
 
 /* ---Custom properties--- */
@@ -59,8 +62,15 @@ body.dark-mode{
 
 .header{
     background-color: var(--bg-color-primary);
+    display: flex;
+    position: relative;
+    justify-content: center;
 }
 
+.dark-mode-btn-container{
+    position: absolute;
+    right: 0;
+}
 .sidebar{
     background-color: var(--bg-color-secondary);
     color: var(--accent-color-primary)
@@ -69,6 +79,12 @@ body.dark-mode{
 .main{
     background-color: var(--bg-color-primary);
     color: var(--text-color-primary);
+}
+
+footer {
+    background-color: var(--text-color-primary);
+    color: var(--bg-color-primary);
+    text-align: center;
 }
 
 /* --- Layout styles Desktop ---*/
@@ -93,5 +109,6 @@ body.dark-mode{
  }
  .footer {
     background-color: black;
+    color: #fff;
  }
 }
