@@ -27,6 +27,7 @@ ul{
 
 body{
     height: 100vh;
+    font-family: "Inter", sans-serif;
     display: grid;
     grid-template-rows: auto 1fr auto;
     grid-template-columns: 1fr;
@@ -41,7 +42,7 @@ body{
     --accent-color-primary: #1a9cb8;
     --accent-color-seconday: #1a94b8;
 
-    --text-color-primary: #111111;
+    --text-color-primary: #0a0e15;
     --text-color-secondary: #000000b3;
     
 
@@ -49,8 +50,8 @@ body{
 }
 
 body.dark-mode{
-    --bg-color-primary: #3b444b;
-    --bg-color-secondary: #414a4c;
+    --bg-color-primary: #0a0e15;
+    --bg-color-secondary: #0a0e15f7;
 
     --accent-color-primary: #1a9cb8;
     --accent-color-seconday: #1a94b8;
@@ -62,26 +63,86 @@ body.dark-mode{
 .header{
     background-color: var(--bg-color-primary);
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em 1.5em;
+    border-bottom: 2px solid var(--accent-color-primary);
+}
+
+.fa-calendar-check{
+    font-size: calc(10px + 1vw);
+    color: var(--text-color-primary);
+}
+.username{
+    font-size: calc(12px + 1vw);
+    color: var(--accent-color-primary);
+    font-weight: 600;
+}
+
+.header-title {
+    font-size: calc(16px + 1.75vw);
+    font-weight: 700;
+    color: var(--text-color-primary);
+}
+.dot, .fy {
+    color: var(--accent-color-primary);
+}
+
+.fy{
+    font-style: italic;
+}
+
+.checkbox-dark-mode {
+    opacity: 0;
+    position: absolute;
+}
+
+.checkbox-dark-mode-label {
+    background-color: var(--bg-color-secondary);
+    width: 44px;
+    height: 22px;
+    border-radius: 50px;
     position: relative;
-    justify-content: center;
-    padding: 0.5em 0;
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: solid 2px var(--accent-color-seconday);
 }
 
-.username-container{
-    position: absolute;
-    left: 0;
-    margin-left: 0.5em;
+.fa-moon {
+    color: #f1c40f;
+    font-size: 12.5px;
+/* font-size: calc(9px + .95vw); */
 }
 
-.dark-mode-btn-container{
+.fa-sun {
+    color: #f39c12;
+    font-size: 12.5px;
+/* font-size: calc(9px + .95vw); */
+}
+
+.checkbox-dark-mode-label .ball {
+    background-color: var(--accent-color-seconday);
+    width: 18px;
+    height: 18px;
     position: absolute;
-    right: 0;
-    margin-right: 0.5em;
+    left: 0px;
+    top: 0px;
+    border-radius: 50%;
+    transition: transform 0.2s linear;
+}
+
+.checkbox-dark-mode:checked+.checkbox-dark-mode-label .ball {
+    transform: translateX(22px);
 }
 .sidebar{
     background-color: var(--bg-color-secondary);
-    color: var(--accent-color-primary)
+    color: var(--accent-color-primary);
+    position: relative;
 }
+
 
 .main{
     background-color: var(--bg-color-primary);
@@ -100,18 +161,43 @@ footer {
 
  .content {
     display: grid;
-    /* gap: 10px; */
     height: 100%;
     grid-template-columns: 1fr 4fr;
     grid-template-rows: 1fr 4fr;
  }
+
+ .fa-calendar-check{
+    padding: 0 .25em;
+ }
+
+ .username{
+    padding-left: 0.25em;
+ }
+
+ .checkbox-dark-mode-label {
+    width: 58px;
+    height: 29px;
+ }
+
+ .fa-moon, .fa-sun{
+    font-size: calc(18px);
+ }
+
+ .checkbox-dark-mode-label .ball {
+    width: 25px;
+    height: 25px;
+ }
+
+ .checkbox-dark-mode:checked+.checkbox-dark-mode-label .ball {
+    transform: translateX(29px);
+ }
+
  .sidebar{
    
     grid-row: 1/-1;
 
  }
  .main {
-    
     grid-column: 2 / -1;
     grid-row: 1 /-1;
  }
