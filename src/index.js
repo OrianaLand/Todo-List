@@ -34,6 +34,7 @@ const todayTasksBtn = document.querySelector(".today-tasks-btn");
 const upcomingTasksBtn = document.querySelector(".upcoming-tasks-btn");
 const completedTasksBtn = document.querySelector(".completed-tasks-btn");
 
+const staticCategoyList = document.querySelector(".categories");
 const dynamicCategoryList = document.querySelector(".dynamic-categories");
 const tasksListContainer = document.querySelector(".list-container");
 
@@ -62,6 +63,19 @@ function renderView() {
     renderTasksByCategory(currentView);
   }
   renderDynamicCategories();
+}
+
+function findCategorToRender(event) {
+  const li = event.target.closest("li");
+
+  if (!li) return;
+
+  // Get the button inside this li
+  const btn = li.querySelector("button");
+  if (!btn) return;
+
+  // Grab the category from the button
+  currentView = btn.dataset.category;
 }
 
 function toggleDarkMode() {
@@ -94,26 +108,6 @@ function removeProject(projectId, projectTitle, categoryLi) {
   }
 }
 
-allTasksBtn.addEventListener("click", () => {
-  currentView = "all";
-  renderView();
-});
-
-todayTasksBtn.addEventListener("click", () => {
-  currentView = "today";
-  renderView();
-});
-
-upcomingTasksBtn.addEventListener("click", () => {
-  currentView = "this-week";
-  renderView();
-});
-
-completedTasksBtn.addEventListener("click", () => {
-  currentView = "completed";
-  renderView();
-});
-
 newProjectBtn.addEventListener("click", () => {
   openCategoryDialog();
 });
@@ -132,12 +126,14 @@ addNewCategoryForm.addEventListener("submit", (event) => {
   renderDynamicCategories();
 });
 
+staticCategoyList.addEventListener("click", (event) => {
+  findCategorToRender(event);
+  renderView();
+});
+
 dynamicCategoryList.addEventListener("click", (event) => {
-  if (event.target.closest(".dynamic-category-button")) {
-    const btn = event.target.closest(".dynamic-category-button");
-    currentView = btn.dataset.category; // currentView is equivalent to the category
-    renderView();
-  }
+  findCategorToRender(event);
+  renderView();
 });
 
 dynamicCategoryList.addEventListener("click", (event) => {
