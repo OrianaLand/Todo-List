@@ -126,11 +126,14 @@ export const renderDynamicCategories = () => {
   for (let category of dynamicCategories) {
     const categoryLi = document.createElement("li");
     const categoryBtn = document.createElement("button");
+    const iconElement = document.createElement("i");
     const textSpan = document.createElement("span");
     const counterSpan = document.createElement("span");
 
     categoryBtn.classList.add("dynamic-category-button");
     categoryBtn.dataset.category = category.id;
+
+    iconElement.classList.add("fa-regular", "fa-file");
 
     textSpan.innerText = category.title;
     textSpan.classList.add("category-name");
@@ -138,15 +141,22 @@ export const renderDynamicCategories = () => {
     counterSpan.classList.add("counter");
     counterSpan.id = category.id;
 
-    categoryBtn.append(textSpan, counterSpan);
+    categoryBtn.append(iconElement, textSpan, counterSpan);
     categoryLi.append(categoryBtn);
 
     if (category.title !== "General") {
       const deleteCategorybtn = document.createElement("button");
-      deleteCategorybtn.innerText = "x";
-      deleteCategorybtn.classList.add("delete-category");
+      deleteCategorybtn.classList.add(
+        "fa-solid",
+        "fa-trash",
+        "delete-category"
+      );
+
+      iconElement.classList.replace("fa-file", "fa-minus");
+      iconElement.classList.replace("fa-regular", "fa-solid");
       categoryLi.append(deleteCategorybtn);
     }
+
     allCategoriessUl.append(categoryLi);
   }
 };

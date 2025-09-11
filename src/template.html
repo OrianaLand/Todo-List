@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Alata&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
       rel="stylesheet"
     />
     <!-- Font Awesome 6 (latest) -->
@@ -38,35 +38,45 @@
     </header>
     <div class="content">
       <div class="sidebar">
-        <button class="hide-sidebar">HideMe</button>
+        <input
+          type="checkbox"
+          class="checkbox-hide-sidebar"
+          id="hide-sidebar"
+        />
+        <label for="hide-sidebar" class="move-on-press" tabindex="0"
+          ><i class="fa-solid fa-down-left-and-up-right-to-center"></i
+        ></label>
         <div class="static-categories-container">
           <h2 class="sidebar-title">Tasks</h2>
+          <button class="add-button new-task" data-category="new-task">
+            <i class="fa-solid fa-plus"></i>
+            New task
+          </button>
           <ul class="categories">
             <li>
-              <button class="add-button new-task" data-category="new-task">
-                New task
-              </button>
-            </li>
-            <li>
               <button class="all-tasks-btn" data-category="all">
+                <i class="fa-solid fa-inbox"></i>
                 <span class="category-name">All Tasks</span>
                 <span class="counter" id="all-tasks"></span>
               </button>
             </li>
             <li>
               <button class="today-tasks-btn" data-category="today">
+                <i class="fa-solid fa-calendar-day"></i>
                 <span class="category-name">Today</span>
                 <span class="counter" id="today-tasks"></span>
               </button>
             </li>
             <li>
               <button class="upcoming-tasks-btn" data-category="upcoming">
+                <i class="fa-solid fa-calendar-week"></i>
                 <span class="category-name">This Week</span>
                 <span class="counter" id="upcoming-tasks"></span>
               </button>
             </li>
             <li>
               <button class="completed-tasks-btn" data-category="completed">
+                <i class="fa-solid fa-square-check"></i>
                 <span class="category-name">Completed</span>
                 <span class="counter" id="completed-tasks"></span>
               </button>
@@ -75,7 +85,9 @@
         </div>
         <div class="dynamic-categories-container">
           <h2 class="sidebar-title">Projects</h2>
-          <button class="add-button new-project">New Project</button>
+          <button class="add-button new-project">
+            <i class="fa-solid fa-plus"></i>New Project
+          </button>
           <ul class="categories dynamic-categories"></ul>
         </div>
       </div>
@@ -84,7 +96,9 @@
           <span class="main-title">Project Name</span>
         </div>
         <div class="list-container">
-          <button class="add-button new-task">New task</button>
+          <button class="add-button new-task">
+            <i class="fa-solid fa-plus"></i>New task
+          </button>
           <ul class="tasks-list"></ul>
         </div>
       </div>

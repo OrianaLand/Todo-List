@@ -25,8 +25,9 @@ import { deleteTodo } from "./todoList.js";
 const darkModeBtn = document.querySelector(".checkbox-dark-mode");
 const body = document.querySelector("body");
 
-const hideSidebarBtn = document.querySelector(".hide-sidebar");
+const hideSidebarBtn = document.querySelector(".checkbox-hide-sidebar");
 const sidebar = document.querySelector(".sidebar");
+const main = document.querySelector(".main");
 
 const allTasksBtn = document.querySelector(".all-tasks-btn");
 const todayTasksBtn = document.querySelector(".today-tasks-btn");
@@ -67,9 +68,14 @@ function toggleDarkMode() {
   body.classList.toggle("dark-mode");
 }
 
-/* function hideSidebar() {
-  sidebar.style.display = sidebar.style.display === "none" ? "block" : "none";
-} */
+function hideSidebar() {
+  sidebar.classList.toggle("hidden");
+}
+
+function expandMain() {
+  main.classList.toggle("expand");
+}
+
 function removeProject(projectId, projectTitle, categoryLi) {
   if (
     confirm(
@@ -195,7 +201,10 @@ darkModeBtn.addEventListener("change", () => {
   toggleDarkMode();
 });
 
-/* hideSidebarBtn.addEventListener("click", () => {
+hideSidebarBtn.addEventListener("click", () => {
   hideSidebar();
-}) */ renderDynamicCategories();
+  expandMain();
+});
+
+renderDynamicCategories();
 renderView();
