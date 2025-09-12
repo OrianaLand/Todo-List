@@ -13,7 +13,7 @@ const categoryDialog = document.querySelector(".add-project-dialog");
 
 function createTaskCardElement(task) {
   const taskCard = document.createElement("div");
-  taskCard.classList.add("item-conatiner");
+  taskCard.classList.add("item-container");
   taskCard.dataset.id = task.id;
 
   const checkboxContainer = document.createElement("div");
@@ -26,7 +26,6 @@ function createTaskCardElement(task) {
 
   checkbox.addEventListener("change", () => {
     toggleTodoDone(task.id); // flips the done property
-    title.style.textDecoration = task.done ? "line-through" : "none"; //test. Send to CSS when working with styles
   });
 
   const cardInfo = document.createElement("div");
@@ -36,24 +35,34 @@ function createTaskCardElement(task) {
   const description = document.createElement("p");
   const dueDate = document.createElement("p");
   const category = document.createElement("p");
-  const priority = document.createElement("p");
 
   title.innerText = task.title;
   description.innerText = task.description;
   dueDate.innerText = tasksManager.formatDate(task.dueDate);
-  category.innerText = task.category;
-  priority.innerText = task.priority;
+  category.innerText = `-${task.category}-`;
+
+  const priority = document.createElement("span");
+  priority.classList.add("priority");
+
+  if (task.priority === "1") {
+    priority.classList.add("high");
+    priority.title = "High Priority"; // tooltip on hover
+  } else if (task.priority === "2") {
+    priority.classList.add("medium");
+    priority.title = "Medium Priority";
+  } else {
+    priority.classList.add("low");
+    priority.title = "Low Priority";
+  }
 
   const btnContainer = document.createElement("div");
   btnContainer.classList.add("btn-container");
 
   const editBtn = document.createElement("button");
-  editBtn.classList.add("edit-item");
-  editBtn.textContent = "✏️";
+  editBtn.classList.add("edit-item", "fa-regular", "fa-pen-to-square");
 
   const deleteBtn = document.createElement("button");
-  deleteBtn.classList.add("delete-item");
-  deleteBtn.textContent = "🗑️";
+  deleteBtn.classList.add("delete-item", "fa-regular", "fa-trash-can");
 
   checkboxContainer.append(checkbox);
   cardInfo.append(title, description, dueDate, category);
@@ -82,6 +91,23 @@ function renderEmptyMsg(currentView) {
 function renderTasks(currentTasks, currentView) {
   const allTasksUl = document.querySelector(".tasks-list");
   allTasksUl.innerText = "";
+
+  const categoryTitle = document.querySelector(".main-title");
+  let formatedView = "";
+
+  if (currentView === "all-tasks") {
+    formatedView = currentView.replace("-", " ");
+    categoryTitle.innerText = formatedView
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  } else {
+    formatedView = currentView.replace("-tasks", "");
+    formatedView = formatedView.replace("-", " "); //Formating for This Week static category
+
+    categoryTitle.innerText =
+      formatedView.charAt(0).toUpperCase() + formatedView.slice(1);
+  }
 
   if (currentTasks.length === 0) {
     renderEmptyMsg(currentView);

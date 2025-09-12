@@ -29,11 +29,6 @@ const hideSidebarBtn = document.querySelector(".checkbox-hide-sidebar");
 const sidebar = document.querySelector(".sidebar");
 const main = document.querySelector(".main");
 
-const allTasksBtn = document.querySelector(".all-tasks-btn");
-const todayTasksBtn = document.querySelector(".today-tasks-btn");
-const upcomingTasksBtn = document.querySelector(".upcoming-tasks-btn");
-const completedTasksBtn = document.querySelector(".completed-tasks-btn");
-
 const staticCategoyList = document.querySelector(".categories");
 const dynamicCategoryList = document.querySelector(".dynamic-categories");
 const tasksListContainer = document.querySelector(".list-container");
@@ -48,10 +43,10 @@ const closeNewCategoryDialogBtn = document.querySelector(
 );
 const addNewCategoryForm = document.querySelector(".add-project-form");
 
-let currentView = "all"; // default view on page load
+let currentView = "all-tasks"; // default view on page load
 
 function renderView() {
-  if (currentView === "all") {
+  if (currentView === "all-tasks") {
     renderAllTasks(currentView);
   } else if (currentView === "today") {
     renderTodayTasks(currentView);
@@ -104,6 +99,16 @@ function removeProject(projectId, projectTitle, categoryLi) {
       renderView();
       return;
     }
+    renderView();
+  }
+}
+
+function removeTodo(todoCard) {
+  if (confirm("Do you want to permanently delete this task?")) {
+    const todoID = todoCard.dataset.id;
+    deleteTodo(todoID);
+    //Remove DOM element
+    todoCard.remove();
     renderView();
   }
 }
@@ -172,7 +177,7 @@ addTaskForm.addEventListener("submit", (event) => {
 tasksListContainer.addEventListener("click", (event) => {
   if (!event.target.classList.contains("edit-item")) return;
 
-  const taskCard = event.target.closest(".item-conatiner");
+  const taskCard = event.target.closest(".item-container");
   const taskId = taskCard.dataset.id;
 
   const todo = getTodoById(taskId);
@@ -181,16 +186,11 @@ tasksListContainer.addEventListener("click", (event) => {
 
 tasksListContainer.addEventListener("click", (event) => {
   if (!event.target.classList.contains("delete-item")) return;
+  const taskCard = event.target.closest(".item-container");
 
-  const taskCard = event.target.closest(".item-conatiner");
   if (!taskCard) return;
 
-  const taskId = taskCard.dataset.id;
-  deleteTodo(taskId);
-
-  // Remove DOM element
-  taskCard.remove();
-  renderView();
+  removeTodo(taskCard);
 });
 
 darkModeBtn.addEventListener("change", () => {
