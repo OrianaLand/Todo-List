@@ -505,6 +505,15 @@ footer {
      right: -33px;
      transition: right 0.3s ease;
  }
+
+ .dynamic-categories-container{
+    overflow-y: auto;
+ }
+
+ .static-categories-container,
+ .dynamic-categories-container{
+    padding-right: 0.5em;
+ }
  
  /* ---Main--- */
  .main {
