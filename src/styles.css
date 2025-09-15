@@ -418,14 +418,18 @@ footer {
     padding: 0.25em;
 }
 
-/* --- LAYOUT STYLES DESKTOP ---*/
+/* ------------- DESKTOP STYLES -------------*/
 @media only screen and (min-width: 780px) {
+ body{
+    overflow: hidden;
+ }
 
  .content {
     display: grid;
     height: 100%;
     grid-template-columns: 300px 1fr;
     grid-template-rows: 1fr 4fr;
+    overflow: hidden;
  }
 
  /* ---Header--- */
@@ -502,7 +506,7 @@ footer {
      transition: right 0.3s ease;
  }
  
- /* ---Header--- */
+ /* ---Main--- */
  .main {
     grid-column: 2 / -1;
     grid-row: 1 /-1;
@@ -513,6 +517,26 @@ footer {
     min-width: 450px;
     max-width: 750px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /*Important for grid/flexbox scrolling*/
+ }
+
+ .list-container{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+ }
+
+ .list-container>.new-task{
+    align-self: flex-start;
+ }
+
+ .tasks-list{
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 0.5em;
  }
 
  .main.expand{
