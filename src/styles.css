@@ -572,4 +572,26 @@ footer {
     color: #fff;
  }
 
+ .tasks-list::-webkit-scrollbar,
+ .dynamic-categories::-webkit-scrollbar {
+     width: 6px;
+ }
+
+ .tasks-list::-webkit-scrollbar-track,
+ .dynamic-categories::-webkit-scrollbar-track {
+     background: var(--bg-color-secondary);
+     border-radius: 10px;
+ }
+
+ .tasks-list::-webkit-scrollbar-thumb,
+ .dynamic-categories::-webkit-scrollbar-thumb {
+     background: var(--accent-color-primary);
+     border-radius: 10px;
+ }
+
+ .tasks-list::-webkit-scrollbar-thumb:hover,
+ .dynamic-categories::-webkit-scrollbar-thumb:hover {
+     background: var(--accent-color-secondary);
+ }
+
 }
