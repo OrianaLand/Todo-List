@@ -507,13 +507,21 @@ footer {
  }
 
  .dynamic-categories-container{
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
  }
 
- .static-categories-container,
- .dynamic-categories-container{
+ .dynamic-categories{
+    flex: 1;
+    overflow-y: auto;
     padding-right: 0.5em;
  }
+
+/*  .static-categories-container,
+ .dynamic-categories-container{
+    padding-right: 0.5em;
+ } */
  
  /* ---Main--- */
  .main {
@@ -563,4 +571,5 @@ footer {
     background-color: black;
     color: #fff;
  }
+
 }
