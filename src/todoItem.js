@@ -14,18 +14,27 @@ class Todo {
     if (dateStr instanceof Date) return dateStr; // already a Date object
     if (!dateStr) return null;
 
-    // Try ISO string
+    // Handle YYYY-MM-DD explicitly as local date
+    if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+      const [year, month, day] = dateStr.split("-").map(Number);
+      return new Date(year, month - 1, day); // ✅ This stays local
+    }
+
+    // Fallback for other formats
+    const parsedDate = new Date(dateStr);
+    return isNaN(parsedDate) ? null : parsedDate;
+
+    /*     // Try ISO string
     const parsedDate = new Date(dateStr);
     if (!isNaN(parsedDate)) return parsedDate;
 
     // Fallback: YYYY-MM-DD format
     const [year, month, day] = dateStr.split("-").map(Number);
-    return new Date(year, month - 1, day);
+    return new Date(year, month - 1, day); */
   }
 
   toggleDoneStatus() {
     this.done = !this.done;
-    console.log("status toggled");
   }
 
   editTodo(title, description, dueDate, category, priority, id) {
