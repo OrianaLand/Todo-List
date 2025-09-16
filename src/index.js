@@ -178,6 +178,7 @@ tasksListContainer.addEventListener("click", (event) => {
   if (!event.target.classList.contains("edit-item")) return;
 
   const taskCard = event.target.closest(".item-container");
+
   const taskId = taskCard.dataset.id;
 
   const todo = getTodoById(taskId);

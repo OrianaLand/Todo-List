@@ -229,11 +229,11 @@ class TaskCategoryManager {
     return true;
   }
 
-  moveTaskToCategory(taskId, newCategory) {
+  moveTaskToCategory(taskId, oldCategoryName, newCategory) {
     const task = this.allTasks.find((t) => t.id === taskId);
     if (!task) return false;
 
-    const oldCategoryId = this.#formatId(task.category);
+    const oldCategoryId = this.#formatId(oldCategoryName);
     const oldCategory = this.categories.find((cat) => cat.id === oldCategoryId);
 
     // Remove from old category
@@ -350,7 +350,7 @@ export const editTodo = (title, description, date, category, priority, id) => {
 
   // If category changed, move the task
   if (currentCat !== category) {
-    tasksManager.moveTaskToCategory(id, category);
+    tasksManager.moveTaskToCategory(id, currentCat, category);
   } else {
     // Just save the changes
     tasksManager.updateTask(id);
