@@ -20,7 +20,7 @@ import {
   removeCategory,
 } from "./todoDOM.js";
 
-import { deleteTodo } from "./todoList.js";
+import { toggleTodoDone, deleteTodo } from "./todoList.js";
 
 const darkModeBtn = document.querySelector(".checkbox-dark-mode");
 const body = document.querySelector("body");
@@ -192,6 +192,19 @@ tasksListContainer.addEventListener("click", (event) => {
   if (!taskCard) return;
 
   removeTodo(taskCard);
+});
+
+tasksListContainer.addEventListener("click", (event) => {
+  if (!event.target.classList.contains("task-checkbox")) return;
+  const taskCard = event.target.closest(".item-container");
+
+  if (!taskCard) return;
+
+  const taskId = taskCard.dataset.id;
+
+  toggleTodoDone(taskId);
+
+  renderView();
 });
 
 darkModeBtn.addEventListener("change", () => {

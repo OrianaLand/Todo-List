@@ -24,10 +24,6 @@ function createTaskCardElement(task) {
   checkbox.classList.add("task-checkbox");
   checkbox.checked = task.done; // reflect initial state
 
-  checkbox.addEventListener("change", () => {
-    toggleTodoDone(task.id); // flips the done property
-  });
-
   const cardInfo = document.createElement("div");
   cardInfo.classList.add("item-info");
 
