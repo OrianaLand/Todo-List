@@ -127,7 +127,15 @@ class TaskCategoryManager {
   }
 
   formatDate(date) {
-    return format(date, "dd MMM yyyy");
+    if (!date) return "";
+
+    // Ensure we’re working with a Date object
+    const d = new Date(date);
+
+    // Normalize to local midnight (remove hours, minutes, seconds)
+    d.setHours(0, 0, 0, 0);
+
+    return format(d, "dd MMM yyyy");
   }
 
   addTask(task) {
