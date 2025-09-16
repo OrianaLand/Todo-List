@@ -433,6 +433,17 @@ footer {
  }
 
  /* ---Header--- */
+ .header-title-container,
+ .username-container,
+ .dark-mode-btn-container {
+     min-width: 126px;
+ }
+
+ .dark-mode-btn-container{
+    display: flex;
+    justify-content: flex-end;
+ }
+
  .fa-calendar-check{
     padding: 0 .25em;
  }
