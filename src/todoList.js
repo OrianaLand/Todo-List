@@ -343,7 +343,6 @@ export const editTodo = (title, description, date, category, priority, id) => {
   const task = tasksManager.getTaskById(id);
   if (!task) return;
 
-  console.log(date);
   const currentCat = task.category;
 
   // Update task properties first

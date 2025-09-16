@@ -35,7 +35,6 @@ function createTaskCardElement(task) {
   title.innerText = task.title;
   description.innerText = task.description;
   dueDate.innerText = tasksManager.formatDate(task.dueDate);
-  console.log(task.dueDate);
   category.innerText = `-${task.category}-`;
 
   const priority = document.createElement("span");
@@ -231,8 +230,6 @@ export const submitNewTodo = () => {
     alert("Please fill in all the required fields");
     return;
   }
-
-  console.log(date);
 
   const editingId = todoDialog.dataset.editingId;
   if (editingId) {

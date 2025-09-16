@@ -196,9 +196,9 @@ body.dark-mode{
 }
 
 .categories li {
-    margin: 0.5em 0;
+    margin: 0.25em 0;
     padding-left: 1em;
-    padding: 0.25em 0.25em 0.25em 1em;
+    padding: 0.125em 0.25em 0.125em 1em;
     display: flex;
     justify-content: space-between;
 }
@@ -241,7 +241,7 @@ button i {
 
 .dynamic-categories .fa-trash {
     font-size: 12px;
-    padding-right: .5em;
+    padding-right: 1.5em;
 }
 
 .dynamic-categories .fa-trash:hover {
@@ -518,10 +518,14 @@ footer {
     padding-right: 0.5em;
  }
 
-/*  .static-categories-container,
- .dynamic-categories-container{
+ .dynamic-categories .fa-trash{
     padding-right: 0.5em;
- } */
+ }
+
+ .categories li{
+    margin: 0.5em 0;
+    padding: 0.25em 0.25em 0.25em 1em;
+ }
  
  /* ---Main--- */
  .main {
@@ -554,6 +558,7 @@ footer {
     flex: 1;
     overflow-y: auto;
     padding-right: 0.5em;
+    padding-top: 0.5em;
  }
 
  .main.expand{
