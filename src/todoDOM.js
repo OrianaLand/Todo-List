@@ -215,6 +215,9 @@ export const closeTodoDialog = () => {
     delete todoDialog.dataset.editingId; //clear edit
     const addTodoBtn = document.querySelector(".add-to-list");
     addTodoBtn.innerText = "Add to-do";
+
+    const editTodoTitle = document.querySelector(".todo-form-title");
+    editTodoTitle.innerText = "New To-do";
   }
   todoDialog.close();
 };
@@ -238,6 +241,9 @@ export const submitNewTodo = () => {
 
     const addTodoBtn = document.querySelector(".add-to-list");
     addTodoBtn.innerText = "Add to-do";
+
+    const editTodoTitle = document.querySelector(".todo-form-title");
+    editTodoTitle.innerText = "New To-do";
   } else {
     addNewTodo(title, description, date, category, priority);
   }
@@ -276,6 +282,9 @@ export const openEditTodoDialog = (todo) => {
   //Use Add todo button to submit edit
   const editTodoBtn = document.querySelector(".add-to-list");
   editTodoBtn.innerText = "Edit";
+
+  const editTodoTitle = document.querySelector(".todo-form-title");
+  editTodoTitle.innerText = "Edit To-do";
 
   todoDialog.showModal();
   document.getElementById("dummy-focus").focus();
