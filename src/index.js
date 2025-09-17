@@ -138,15 +138,16 @@ closeNewCategoryDialogBtn.addEventListener("click", () => {
 addNewCategoryForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const projectName = document.querySelector("#project").value.trim();
+  const projectInput = document.querySelector("#project"); // DOM element
+  const projectName = projectInput.value.trim(); //Value
 
-  projectName.setCustomValidity("");
+  projectInput.setCustomValidity("");
 
   if (!projectName) {
-    projectName.setCustomValidity("Project name cannot be empty.");
+    projectInput.setCustomValidity("Project name cannot be empty.");
   }
   if (projectName.length > 20) {
-    projectName.setCustomValidity(
+    projectInput.setCustomValidity(
       "Project name cannot be longer than 20 characters."
     );
   }
@@ -202,7 +203,8 @@ closeDialogBtn.addEventListener("click", () => {
 addTaskForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const title = document.querySelector("#title").value.trim();
+  const titleInput = document.querySelector("#title"); // Dom Element
+  const title = titleInput.value.trim(); // Value
 
   titleInput.setCustomValidity("");
 
