@@ -48,8 +48,11 @@ body{
 
     --bg-hover-primary: #dd4d403b;
     --bg-hover-secondary: #dd4d404f;
+    --bg-hover-select: #dd4d404f;
 
     --delete-item-hover: #cc0000;
+
+    --form-btn-text-color: #fff;
     
 
     --transition-default: all 0.2s ease;
@@ -68,6 +71,7 @@ body.dark-mode{
 
     --bg-hover-primary: #1a9cb83b;
     --bg-hover-secondary: #1a94b84f;
+    --bg-hover-select: #1a94b8;
 
     --delete-item-hover: #de3b3b;
 
@@ -416,6 +420,107 @@ footer {
     color: var(--bg-color-primary);
     text-align: center;
     padding: 0.25em;
+}
+
+/*---Dialog styles---*/
+::backdrop {
+    background-color: #000000CC;
+}
+
+form{
+    background-color: var(--bg-color-primary);
+    padding: 1em;
+    color: var(--text-color-primary);
+}
+
+.form-input{
+    margin-top: .75em;
+}
+
+.input-label{
+    display: inline-block;
+    width: 100%;
+}
+
+.form-input>input,
+.form-input>textarea{
+    width: 80%;
+}
+
+select,
+::picker(select) {
+    appearance: base-select;
+} /*Remove Os styles and make <select> customizable*/
+
+select,
+option {
+    border: 2px solid var(--text-color-secondary);
+    background-color: var(--bg-color-secondary);
+    color: var(--text-color-primary);
+    transition: 0.4s;
+}
+
+select{
+    padding: 0.25em 0.5em;
+}
+
+option{
+    padding: 0.25em 1.5em 0.25em 0.25em;
+}
+
+select:hover {
+    background: var(--bg-hover-select);
+}
+
+select::picker-icon {
+    color: var(--accent-color-primary);
+    transition: 0.4s;
+}/*Arrow icon on the select element when it's closed*/
+
+select:open::picker-icon {
+    rotate: 180deg;
+}/*Arrow icon on the select element when it's open*/
+
+::picker(select) {
+    border: none;
+}/*Targets everything inside the select element*/
+
+option:hover,
+option:focus {
+    background: var(--bg-hover-select);
+}
+
+
+.form-buttons{
+    margin-top: 1.5em;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.form-buttons>button{
+    padding: 0.5em 1em;
+    min-width: 7em;
+    background-color: var(--accent-color-primary);
+    border: none;
+    border-radius: 5px;
+    color: var(--form-btn-text-color);
+    font-weight: 600;
+}
+
+.add-to-list:hover,
+.add-new-project:hover{
+    background-color: #0a5c36;
+}
+
+.close-dialog-btn:hover,
+.close-project-dialog-btn:hover{
+    background-color: #990000;
+}
+
+#dummy-focus{
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* ------------- DESKTOP STYLES -------------*/

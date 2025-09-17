@@ -43,6 +43,9 @@ const closeNewCategoryDialogBtn = document.querySelector(
 );
 const addNewCategoryForm = document.querySelector(".add-project-form");
 
+const addProjectDialog = document.querySelector(".add-project-dialog");
+const addTodoDialog = document.querySelector(".add-todo-dialog");
+
 let currentView = "all-tasks"; // default view on page load
 
 function renderView() {
@@ -113,6 +116,16 @@ function removeTodo(todoCard) {
   }
 }
 
+function setupCloseOnBackdropClick(dialog, form) {
+  dialog.addEventListener("click", (event) => {
+    // If the clicked element is the dialog itself (not its children), close it
+    if (event.target === dialog) {
+      form.reset();
+      dialog.close();
+    }
+  });
+}
+
 newProjectBtn.addEventListener("click", () => {
   openCategoryDialog();
 });
@@ -124,6 +137,26 @@ closeNewCategoryDialogBtn.addEventListener("click", () => {
 
 addNewCategoryForm.addEventListener("submit", (event) => {
   event.preventDefault();
+
+  const projectName = document.querySelector("#project").value.trim();
+
+  projectName.setCustomValidity("");
+
+  if (!projectName) {
+    projectName.setCustomValidity("Project name cannot be empty.");
+  }
+  if (projectName.length > 20) {
+    projectName.setCustomValidity(
+      "Project name cannot be longer than 20 characters."
+    );
+  }
+
+  if (!addNewCategoryForm.checkValidity()) {
+    event.preventDefault();
+    projectInput.reportValidity(); // triggers browser tooltip
+    return;
+  }
+
   submitNewCategory();
   addNewCategoryForm.reset();
   closeCategoryDialog();
@@ -168,6 +201,23 @@ closeDialogBtn.addEventListener("click", () => {
 
 addTaskForm.addEventListener("submit", (event) => {
   event.preventDefault();
+
+  const title = document.querySelector("#title").value.trim();
+
+  titleInput.setCustomValidity("");
+
+  if (!title) {
+    titleInput.setCustomValidity("Title cannot be empty.");
+  } else if (title.length > 20) {
+    titleInput.setCustomValidity("Title cannot be longer than 20 characters.");
+  }
+
+  if (!addTaskForm.checkValidity()) {
+    event.preventDefault();
+    titleInput.reportValidity();
+    return;
+  }
+
   submitNewTodo();
   addTaskForm.reset();
   closeTodoDialog();
@@ -215,6 +265,9 @@ hideSidebarBtn.addEventListener("click", () => {
   hideSidebar();
   expandMain();
 });
+
+setupCloseOnBackdropClick(addProjectDialog, addNewCategoryForm);
+setupCloseOnBackdropClick(addTodoDialog, addTaskForm);
 
 renderDynamicCategories();
 renderView();

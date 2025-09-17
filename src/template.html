@@ -107,15 +107,21 @@
           <h3>New Project</h3>
           <div class="form-input">
             <label for="project" class="input-label">Project: </label>
-            <input type="text" name="project" id="project" required />
+            <input
+              type="text"
+              name="project"
+              id="project"
+              required
+              maxlength="15"
+            />
           </div>
-          <div class="form-input">
+          <div class="form-buttons">
             <button
               class="button add-new-project"
               type="submit"
               aria-label="Add project to list"
             >
-              Add new project
+              Add project
             </button>
             <button
               class="button close-project-dialog-btn"
@@ -132,11 +138,21 @@
           <h3>New To-do</h3>
           <div class="form-input">
             <label for="title" class="input-label">Title: </label>
-            <input type="text" name="title" id="title" required />
+            <input
+              type="text"
+              name="title"
+              id="title"
+              required
+              maxlength="20"
+            />
           </div>
           <div class="form-input">
             <label for="description" class="input-label">Description: </label>
-            <input type="text" name="description" id="description" required />
+            <textarea
+              name="description"
+              id="description"
+              maxlength="150"
+            ></textarea>
           </div>
           <div class="form-input">
             <label for="date" class="input-label">Date: </label>
@@ -144,7 +160,7 @@
           </div>
           <div class="form-input">
             <label for="category" class="input-label">Category: </label>
-            <select name="category" id="category"></select>
+            <select name="category" id="category" required></select>
           </div>
           <div class="form-input">
             <label for="priority" class="input-label">Priority: </label>
@@ -154,7 +170,7 @@
               <option value="3">Low</option>
             </select>
           </div>
-          <div class="form-input">
+          <div class="form-buttons">
             <button
               class="button add-to-list"
               type="submit"
