@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alata&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome 6 (latest) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <title>To do App</title>
+  <script defer src="main.js"></script></head>
+  <body>
+    <header class="header">
+      <div class="username-container">
+        <i class="fa-solid fa-calendar-check"></i>
+        <span class="username">Guest</span>
+      </div>
+      <div class="header-title-container">
+        <p class="header-title">
+          Listi<span class="dot">.</span><span class="fy">fy</span>
+        </p>
+      </div>
+      <div class="dark-mode-btn-container">
+        <input type="checkbox" class="checkbox-dark-mode" id="checkbox" />
+        <label for="checkbox" class="checkbox-dark-mode-label">
+          <i class="fas fa-moon"></i>
+          <i class="fas fa-sun"></i>
+          <span class="ball"></span>
+        </label>
+      </div>
+    </header>
+    <div class="content">
+      <div class="sidebar">
+        <input
+          type="checkbox"
+          class="checkbox-hide-sidebar"
+          id="hide-sidebar"
+        />
+        <label for="hide-sidebar" class="move-on-press" tabindex="0"
+          ><i class="fa-solid fa-down-left-and-up-right-to-center"></i
+        ></label>
+        <div class="static-categories-container">
+          <h2 class="sidebar-title">Tasks</h2>
+          <button class="add-button new-task" data-category="new-task">
+            <i class="fa-solid fa-plus"></i>
+            New task
+          </button>
+          <ul class="categories">
+            <li>
+              <button class="all-tasks-btn" data-category="all-tasks">
+                <i class="fa-solid fa-inbox"></i>
+                <span class="category-name">All Tasks</span>
+                <span class="counter" id="all-tasks"></span>
+              </button>
+            </li>
+            <li>
+              <button class="today-tasks-btn" data-category="today">
+                <i class="fa-solid fa-calendar-day"></i>
+                <span class="category-name">Today</span>
+                <span class="counter" id="today-tasks"></span>
+              </button>
+            </li>
+            <li>
+              <button class="upcoming-tasks-btn" data-category="this-week">
+                <i class="fa-solid fa-calendar-week"></i>
+                <span class="category-name">This Week</span>
+                <span class="counter" id="upcoming-tasks"></span>
+              </button>
+            </li>
+            <li>
+              <button class="completed-tasks-btn" data-category="completed">
+                <i class="fa-solid fa-square-check"></i>
+                <span class="category-name">Completed</span>
+                <span class="counter" id="completed-tasks"></span>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="dynamic-categories-container">
+          <h2 class="sidebar-title">Projects</h2>
+          <button class="add-button new-project">
+            <i class="fa-solid fa-plus"></i>New Project
+          </button>
+          <ul class="categories dynamic-categories"></ul>
+        </div>
+      </div>
+      <div class="main">
+        <div class="main-title-div">
+          <span class="main-title">Project Name</span>
+        </div>
+        <div class="list-container">
+          <button class="add-button new-task">
+            <i class="fa-solid fa-plus"></i>New task
+          </button>
+          <ul class="tasks-list"></ul>
+        </div>
+      </div>
+      <dialog class="add-project-dialog">
+        <form action="get" class="add-project-form">
+          <h3>New Project</h3>
+          <div class="form-input">
+            <label for="project" class="input-label">Project: </label>
+            <input
+              type="text"
+              name="project"
+              id="project"
+              required
+              maxlength="15"
+            />
+          </div>
+          <div class="form-buttons">
+            <button
+              class="button add-new-project"
+              type="submit"
+              aria-label="Add project to list"
+            >
+              Add project
+            </button>
+            <button
+              class="button close-project-dialog-btn"
+              type="button"
+              aria-label="Cancel"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </dialog>
+      <dialog class="add-todo-dialog">
+        <form action="get" class="add-todo-form">
+          <h3 class="todo-form-title">New To-do</h3>
+          <div class="form-input">
+            <label for="title" class="input-label">Title: </label>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              required
+              maxlength="20"
+            />
+          </div>
+          <div class="form-input">
+            <label for="description" class="input-label">Description: </label>
+            <textarea
+              name="description"
+              id="description"
+              maxlength="150"
+            ></textarea>
+          </div>
+          <div class="form-input">
+            <label for="date" class="input-label">Date: </label>
+            <input type="date" name="date" id="date" required />
+          </div>
+          <div class="form-input">
+            <label for="category" class="input-label">Category: </label>
+            <select name="category" id="category" required></select>
+          </div>
+          <div class="form-input">
+            <label for="priority" class="input-label">Priority: </label>
+            <select name="priority" id="priority" required>
+              <option value="1">High</option>
+              <option value="2">Medium</option>
+              <option value="3">Low</option>
+            </select>
+          </div>
+          <div class="form-buttons">
+            <button
+              class="button add-to-list"
+              type="submit"
+              aria-label="Add to-do to list"
+            >
+              Add to-do
+            </button>
+            <button
+              class="button close-dialog-btn"
+              type="button"
+              aria-label="Cancel"
+            >
+              Cancel
+            </button>
+            <div id="dummy-focus"></div>
+          </div>
+        </form>
+      </dialog>
+    </div>
+    <footer class="footer">© 2025 Developed by Oriana</footer>
+  </body>
+</html>
