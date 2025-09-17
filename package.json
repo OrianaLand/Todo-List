@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "dev": "webpack serve",
-    "deploy": "git subtree push --prefix dist origin gh-pages"
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -19,9 +19,10 @@
   "bugs": {
     "url": "https://github.com/OrianaLand/Todo-List/issues"
   },
-  "homepage": "https://github.com/OrianaLand/Todo-List#readme",
+  "homepage": "https://OrianaLand.github.io/Todo-List/",
   "devDependencies": {
     "css-loader": "^7.1.2",
+    "gh-pages": "^6.3.0",
     "html-webpack-plugin": "^5.6.3",
     "style-loader": "^4.0.0",
     "webpack": "^5.101.0",
