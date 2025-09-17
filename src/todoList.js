@@ -299,17 +299,6 @@ class TaskCategoryManager {
   }
 }
 
-function removeTaskFromCategory(task) {
-  const catId = task.category.toLowerCase().replace(/\s+/g, "-") + "-tasks";
-  const catIndex = tasksManager.categories.findIndex((cat) => cat.id === catId);
-
-  if (catIndex >= 0) {
-    tasksManager.categories[catIndex].items = tasksManager.categories[
-      catIndex
-    ].items.filter((t) => t.id !== task.id);
-  }
-}
-
 export const tasksManager = new TaskCategoryManager();
 
 export const createTodoItem = (

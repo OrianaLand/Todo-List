@@ -3,7 +3,6 @@ import {
   addNewTodo,
   addNewCategory,
   editTodo,
-  toggleTodoDone,
   deleteCategory,
 } from "./todoList.js";
 import { format } from "date-fns";
