@@ -95,7 +95,7 @@ This project was an excellent opportunity to:
 
 ### Sidebar & Dark Mode Demo
 
-![Dark Mode Animation](./assets/darkmode-demo.gif)
+![Dark Mode Animation](./animation-darkmode-demo.gif)
 
 ## Usage
 
